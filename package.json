@@ -1,0 +1,38 @@
+{
+    "name": "raz",
+    "version": "0.0.1",
+    "description": "raz is a program to handle a raspberry pi house server through wifi.",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "pack": "build --dir",
+        "dist": "build",
+        "lint": "eslint ./app/js/"
+    },
+    "repository": "https://github.com/andrewgremlich/raz.git",
+    "keywords": [
+        "Electron",
+        "Raspberry",
+        "Pi",
+        "Home"
+    ],
+    "author": "GitHub",
+    "license": "MIT",
+    "dependencies": {
+        "dotenv": "^4.0.0",
+        "express": "^4.14.0",
+        "jquery": "^3.1.1"
+    },
+    "build": {
+        "appId": "gremlich.electron.game",
+        "mac": {
+            "category": "public.app-category.game"
+        }
+    },
+    "devDependencies": {
+        "electron": "^1.4.15",
+        "electron-builder": "^11.7.0",
+        "electron-connect": "^0.6.1",
+        "gulp": "^3.9.1"
+    }
+}
