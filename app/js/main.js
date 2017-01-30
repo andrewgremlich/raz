@@ -5,11 +5,12 @@ const path = require('path'),
 
 dotenv.load()
 
-/*PATHS*/
-const SCRIPT_DIR = __dirname + '/js/modules/',
-    weather = require(path.join(SCRIPT_DIR, 'weather'))
+window.APP_DIR_NAME = __dirname
 
-document.querySelector('main').appendChild(weather)
+/*PATHS*/
+const SCRIPT_DIR = window.APP_DIR_NAME + '/js/modules/',
+    raz = require(path.join(SCRIPT_DIR, 'raz')),
+    events = require(path.join(SCRIPT_DIR, 'events'))
 
 /*APPLICATION VARIABLES*/
 

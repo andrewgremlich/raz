@@ -10,11 +10,7 @@ Learn how to setup a server with a database.
 Development notes for the developer.
 
 ### FUNCTIONS
-A personal assistant to handle additional data and APIs.
-
-1. NoSQL database
-2. Wikipedia API
-3. Weather API
+An assistant to help with file browsing on a raspberry pi.
 
 ### APIs
 [Electron](http://electron.atom.io/)
