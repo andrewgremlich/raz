@@ -1,21 +1,18 @@
 # raz
 
 ## Overview
-raz is a program to handle a raspberry pi house server through wifi.
+raz is a multiplayer electron desktop application game.  raz connects with other players over the same wifi network with the game being hosted on a raspberry pi.  
 
 ## Attention
-Learn how to setup a server with a database.
+Receive the necessary files from the server.
 
 ## Development
-Development notes for the developer.
+
+(None!  Go develop!)
 
 ### FUNCTIONS
-An assistant to help with file browsing on a raspberry pi.
+Receive data from raspberry pi.  Paint the game using canvas.
 
 ### APIs
 [Electron](http://electron.atom.io/)
 
-## Future Integration
-
-[nmap](https://nmap.org/)
-Voice control [Artyom.js](https://sdkcarlos.github.io/sites/artyom.html)
