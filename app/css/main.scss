@@ -1,7 +1,20 @@
 @import './partials/_reset.scss';
-
-canvas {
-    background: #eee;
-    display: block;
-    margin: 0 auto;
+main {
+    width: 100%;
+    height: 100%;
+    #login {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #canvasContainer {
+        display: none;
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    }
 }

@@ -1,10 +1,10 @@
 {
     "name": "raz",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "A server based application with the intention of being served over wifi on a raspberry pi.",
     "main": "index.js",
     "scripts": {
-        "lint": "eslint ./public/script/",
+        "lint": "eslint ./app/js/",
         "dev": "nodemon ."
     },
     "repository": {
