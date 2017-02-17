@@ -252,6 +252,14 @@
 
         socket.emit('add user', username);
 
+        /*
+        TODO
+        I am going to need an emit function that passes the positional
+        data to every that is connected.
+
+        I also need to have it support multiple players and not just one.
+        */
+
         parent.style.display = 'none'
         aunt.style.display = 'block'
 
