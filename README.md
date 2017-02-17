@@ -4,7 +4,6 @@
 raz is a multiplayer web based game that is served over a raspberry pi.
 
 ## Development
-
 (None!  Go develop!)
 
 ### FUNCTIONS

@@ -15,3 +15,5 @@ Thumbs.db
 
 /coverage
 /.env
+/app/static/script/main.css
+/app/static/style/main.css

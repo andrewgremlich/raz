@@ -1,16 +1,17 @@
 {
-  "name": "raz",
-  "version": "0.0.1",
-  "description": "A server based application with the intention of being served over wifi on a raspberry pi.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andrewgremlich/raz.git"
-  },
-  "keywords": [
+    "name": "raz",
+    "version": "0.0.1",
+    "description": "A server based application with the intention of being served over wifi on a raspberry pi.",
+    "main": "index.js",
+    "scripts": {
+        "lint": "eslint ./public/script/",
+        "dev": "nodemon ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/andrewgremlich/raz.git"
+    },
+    "keywords": [
     "raspberry",
     "pi",
     "game",
@@ -19,10 +20,17 @@
     "server",
     "js"
   ],
-  "author": "Andrew Gremlich",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/andrewgremlich/raz/issues"
-  },
-  "homepage": "https://github.com/andrewgremlich/raz#readme"
+    "author": "Andrew Gremlich",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/andrewgremlich/raz/issues"
+    },
+    "homepage": "https://github.com/andrewgremlich/raz#readme",
+    "dependencies": {
+        "express": "^4.14.1",
+        "socket.io": "^1.7.2"
+    },
+    "devDependencies": {
+        "nodemon": "^1.11.0"
+    }
 }

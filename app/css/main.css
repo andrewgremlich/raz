@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Catamaran");
+/* line 2, /Users/andrewgremlich/Documents/development/raz/app/css/partials/_reset.scss */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0; }
+
+/* line 8, /Users/andrewgremlich/Documents/development/raz/app/css/partials/_reset.scss */
+body, html {
+  height: 100%; }
+
+/* line 12, /Users/andrewgremlich/Documents/development/raz/app/css/partials/_reset.scss */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: 'Catamaran', sans-serif; }
+
+/* line 3, /Users/andrewgremlich/Documents/development/raz/app/css/main.scss */
+canvas {
+  background: #eee;
+  display: block;
+  margin: 0 auto; }
+
+/*# sourceMappingURL=main.css.map */
