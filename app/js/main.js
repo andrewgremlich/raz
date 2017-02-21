@@ -1,5 +1,13 @@
 (function () {
 
+    /*
+    TODO
+    I am going to need an emit function that passes the positional
+    data to every that is connected.
+
+    I also need to have it support multiple players and not just one.
+    */
+
     var socket = io()
 
     /*OBJECTS*/
@@ -295,14 +303,6 @@
             }, 10)
             console.log("login")
         })
-
-        /*
-        TODO
-        I am going to need an emit function that passes the positional
-        data to every that is connected.
-
-        I also need to have it support multiple players and not just one.
-        */
     }
 
 }())
