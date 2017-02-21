@@ -2,6 +2,11 @@
 
     var socket = io()
 
+    /*OBJECTS*/
+
+    document.querySelector('canvas').width = window.innerWidth
+    document.querySelector('canvas').height = window.innerHeight
+
     /**************************
     CANVAS PROTOTYPE CONSTRUCTOR
      ***************************/
@@ -36,16 +41,14 @@
     /**************************
     ENEMY PROTOTYPE CONSTRUCTOR
     ***************************/
-    function Enemy(cwidth, cheight) {
+    function Enemy(x, y) {
         this.width = 10
         this.height = 10
-        this.xMotionSpeed = -4
-        this.yMotionSpeed = -2
+        this.xMotionSpeed = 4
+        this.yMotionSpeed = 2
         this.radius = 10
-        this.wboundary = cwidth
-        this.hboundary = cheight
-        this.x = this.wboundary - 100
-        this.y = this.hboundary - 100
+        this.x = x
+        this.y = y
         this.collisions = 0
     }
 
@@ -98,11 +101,11 @@
     PLAYER PROTOTYPE CONSTRUCTOR
     ****************************/
 
-    function Player() {
+    function Player(x, y) {
         this.width = 10
         this.height = 10
-        this.x = 25
-        this.y = 25
+        this.x = x
+        this.y = y
         this.xMotionSpeed = 0
         this.yMotionSpeed = 0
         this.radius = 10
@@ -190,6 +193,22 @@
         }
     }
 
+    /*SOCKET CONNECTION*/
+
+    socket.on('user joined', e => {
+        console.log(e)
+        console.log("user joined")
+    })
+
+    socket.on('user left', e => {
+        console.log(e)
+        console.log("user left")
+    })
+
+    socket.on('socketdata', e => {
+        console.log(e)
+    })
+
     /*End game function.*/
     function endgame(player, enemy) {
 
@@ -209,18 +228,17 @@
 
     }
 
-    /*OBJECTS*/
-
-    document.querySelector('canvas').width = window.innerWidth
-    document.querySelector('canvas').height = window.innerHeight
-
-    var canvas = new Canvas(),
-        player = new Player(),
-        enemy = new Enemy(canvas.width, canvas.height)
-
     /*FRAME RATE*/
 
-    function frameRate() {
+    function frameRate(renderingObject) {
+
+        console.log(renderingObject)
+
+        let canvas = renderingObject.canvas,
+            player = renderingObject.player,
+            enemy = renderingObject.enemy()
+
+        console.log(canvas, player, enemy)
 
         canvas.clearFrame()
         canvas.drawBorders()
@@ -250,7 +268,33 @@
             parent = srcElement.parentElement,
             aunt = parent.nextElementSibling
 
+        /*GAME MECHANICS*/
+
         socket.emit('add user', username);
+
+        socket.on('login', e => {
+
+            console.log(e)
+
+            let renderingObject = {
+                'canvas': new Canvas(),
+                'player': new Player(e.clientData[0].x, e.clientData[0].y),
+                'enemy': function () {
+                    return new Enemy(e.clientData[1].x, e.clientData[1].y)
+                }
+            }
+
+            console.log(renderingObject)
+
+            parent.style.display = 'none'
+            aunt.style.display = 'block'
+
+            renderingObject.player.movePlayer()
+            window.inter = setInterval(() => {
+                frameRate(renderingObject)
+            }, 10)
+            console.log("login")
+        })
 
         /*
         TODO
@@ -259,27 +303,6 @@
 
         I also need to have it support multiple players and not just one.
         */
-
-        parent.style.display = 'none'
-        aunt.style.display = 'block'
-
-        player.movePlayer()
-        window.inter = setInterval(frameRate, 10)
     }
-
-    socket.on('login', e => {
-        console.log(e)
-        console.log("user connected")
-    })
-
-    socket.on('user joined', e => {
-        console.log(e)
-        console.log("user connected")
-    })
-
-    socket.on('user left', e => {
-        console.log(e)
-        console.log("user left")
-    })
 
 }())
