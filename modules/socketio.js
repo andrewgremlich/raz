@@ -8,6 +8,16 @@ function socketio(io) {
         var addedUser = false
         socket.renderingArray = []
 
+        if (checkForEnemy(socket.renderingArray)) {
+            socket.renderingArray.push({
+                'id': 'enemy',
+                'name': 'enemy',
+                'x': 50,
+                'y': 50,
+                'dead': false
+            })
+        }
+
         socket.on('add user', username => {
             if (addedUser) return
 
@@ -22,16 +32,6 @@ function socketio(io) {
             })
 
             addedUser = true
-
-            if (checkForEnemy(socket.renderingArray)) {
-                socket.renderingArray.push({
-                    'id': 'enemy',
-                    'name': 'enemy',
-                    'x': 50,
-                    'y': 50,
-                    'dead': false
-                })
-            }
 
             socket.emit('login', {
                 'clientData': socket.renderingArray,
