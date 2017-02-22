@@ -7,7 +7,7 @@
         "lint": "eslint ./app/js/",
         "dev": "nodemon .",
         "start": "node index.js",
-        "pack": "webpack"
+        "roll": "rollup -i ./app_scripts/main.js -f iife -o ./app/js/main.js --sourcemap"
     },
     "repository": {
         "type": "git",
@@ -34,6 +34,6 @@
     },
     "devDependencies": {
         "nodemon": "^1.11.0",
-        "webpack": "^2.2.1"
+        "rollup": "^0.41.4"
     }
 }
