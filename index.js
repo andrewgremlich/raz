@@ -3,7 +3,7 @@ const express = require('express'),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
     port = process.env.PORT || 3000,
-      socketio = require('./modules/socketio')
+      socketio = require('./server_modules/socketio')
 
 server.listen(port, function () {
     console.log('Server listening at port %d', port)

@@ -72,7 +72,7 @@ function socketio(io) {
             console.log(data)
             socket.broadcast.emit('on reset', data)
         })
-        
+
         socket.on('disconnect', () => {
 
             socket.emit('user left', {
@@ -84,7 +84,7 @@ function socketio(io) {
             })
 
         })
-        
+
     })
 
 }

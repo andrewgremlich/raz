@@ -1,12 +1,13 @@
 {
     "name": "raz",
-    "version": "0.1.0",
+    "version": "0.4.0",
     "description": "A server based application with the intention of being served over wifi on a raspberry pi.",
     "main": "index.js",
     "scripts": {
         "lint": "eslint ./app/js/",
         "dev": "nodemon .",
-        "start": "node index.js"
+        "start": "node index.js",
+        "pack": "webpack"
     },
     "repository": {
         "type": "git",
@@ -32,6 +33,7 @@
         "socket.io": "^1.7.2"
     },
     "devDependencies": {
-        "nodemon": "^1.11.0"
+        "nodemon": "^1.11.0",
+        "webpack": "^2.2.1"
     }
 }
