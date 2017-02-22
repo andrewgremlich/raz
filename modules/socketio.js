@@ -54,18 +54,23 @@ function socketio(io) {
 
         socket.on('go left', data => {
             console.log(data)
+            socket.broadcast.emit('on left', data)
         })
         socket.on('go up', data => {
             console.log(data)
+            socket.broadcast.emit('on up', data)
         })
         socket.on('go right', data => {
             console.log(data)
+            socket.broadcast.emit('on right', data)
         })
         socket.on('go down', data => {
             console.log(data)
+            socket.broadcast.emit('on down', data)
         })
         socket.on('reset motion', data => {
             console.log(data)
+            socket.broadcast.emit('on reset', data)
         })
         
         socket.on('disconnect', () => {

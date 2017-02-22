@@ -202,6 +202,17 @@
     /*OBJECT OFF OF PROTOTYPES*/
 
     var canvas = new Canvas()
+    
+    function drawOtherPlayers(ctx, pos) {
+        
+//        ctx.clearRect(0, 0, this.width, this.height)
+        
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, pos.radius, 0, Math.PI * 2)
+        ctx.fillStyle = '#55b877'
+        ctx.fill()
+        ctx.closePath()
+    }
 
     /*SOCKET CONNECTION*/
 
@@ -211,6 +222,26 @@
 
     socket.on('lobbyUser', e => {
         console.log(e)
+    })
+    
+    socket.on('on left', e => {
+        drawOtherPlayers(canvas.ctx, e)
+    })
+    
+    socket.on('on up', e => {
+        drawOtherPlayers(canvas.ctx, e)
+    })
+    
+    socket.on('on right', e => {
+        drawOtherPlayers(canvas.ctx, e)
+    })
+    
+    socket.on('on down', e => {
+        drawOtherPlayers(canvas.ctx, e)
+    })
+    
+    socket.on('on reset', e => {
+        drawOtherPlayers(canvas.ctx, e)
     })
 
     socket.on('user left', e => {
