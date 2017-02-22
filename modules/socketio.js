@@ -43,8 +43,6 @@ function socketio(io) {
                  }
              }*/
 
-            console.log(socket.renderingObj)
-
             socket.emit('login', {
                 'clientData': socket.renderingObj
             })
@@ -54,6 +52,22 @@ function socketio(io) {
             })
         })
 
+        socket.on('go left', data => {
+            console.log(data)
+        })
+        socket.on('go up', data => {
+            console.log(data)
+        })
+        socket.on('go right', data => {
+            console.log(data)
+        })
+        socket.on('go down', data => {
+            console.log(data)
+        })
+        socket.on('reset motion', data => {
+            console.log(data)
+        })
+        
         socket.on('disconnect', () => {
 
             socket.emit('user left', {
@@ -65,6 +79,7 @@ function socketio(io) {
             })
 
         })
+        
     })
 
 }

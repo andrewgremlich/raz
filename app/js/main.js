@@ -156,7 +156,7 @@
         document.onkeydown = function (e) {
 
             /*To make a static speed instead of a steady acceleration
-            */
+             */
 
             that.xMotionSpeed = 0
             that.yMotionSpeed = 0
@@ -167,18 +167,22 @@
                     '37': function () {
                         /*arrow left*/
                         that.xMotionSpeed = that.xMotionSpeed - 2
+                        socket.emit('go left', that)
                     },
                     '38': function () {
                         /*arrow up*/
                         that.yMotionSpeed = that.yMotionSpeed - 2
+                        socket.emit('go up', that)
                     },
                     '39': function () {
                         /*arrow right*/
                         that.xMotionSpeed = that.xMotionSpeed + 2
+                        socket.emit('go right', that)
                     },
                     '40': function () {
                         /*arrow down*/
                         that.yMotionSpeed = that.yMotionSpeed + 2
+                        socket.emit('go down', that)
                     }
                 }
 
@@ -190,13 +194,15 @@
             that.xMotionSpeed = 0
             that.yMotionSpeed = 0
 
+            socket.emit('reset motion', that)
+
         }
     }
 
     /*OBJECT OFF OF PROTOTYPES*/
-    
+
     var canvas = new Canvas()
-    
+
     /*SOCKET CONNECTION*/
 
     socket.on('user connected', e => {
@@ -236,23 +242,23 @@
 
         let canvas = renderingObject.canvas,
             player = renderingObject.player
-//            enemy = renderingObject.enemy()
+            //            enemy = renderingObject.enemy()
 
         canvas.clearFrame()
         canvas.drawBorders()
 
         player.drawPlayer(canvas.ctx)
-//        enemy.drawEnemy(canvas.ctx)
+            //        enemy.drawEnemy(canvas.ctx)
 
         player.updatePlayerPosition()
-//        enemy.updateEnemyPosition()
+            //        enemy.updateEnemyPosition()
 
         player.collision(canvas.width, canvas.height)
-//      enemy.collision(canvas.width, canvas.height)
+            //      enemy.collision(canvas.width, canvas.height)
 
 
         /*Pass into the function the positional data of the player and the enemy.*/
-//      endgame(player, enemy)
+        //      endgame(player, enemy)
     }
 
     /*****
@@ -266,26 +272,24 @@
             parent = srcElement.parentElement,
             aunt = parent.nextElementSibling
 
-        /*GAME MECHANICS*/
+        /*GAME START MECHANICS*/
 
         socket.emit('add user to game', username);
 
         socket.on('login', e => {
-            
+
             let xPos = e.clientData.player.x,
                 yPos = e.clientData.player.y,
                 renderingObject = {
-                'canvas': canvas,
-                'player': new Player(xPos, yPos)
-            }
-
-            console.log(renderingObject)
+                    'canvas': canvas,
+                    'player': new Player(xPos, yPos)
+                }
 
             parent.style.display = 'none'
             aunt.style.display = 'block'
 
             renderingObject.player.movePlayer()
-            
+
             window.inter = setInterval(() => {
                 frameRate(renderingObject)
             }, 10)
