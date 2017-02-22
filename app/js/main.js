@@ -1,13 +1,5 @@
 (function () {
 
-    /*
-    TODO
-    I am going to need an emit function that passes the positional
-    data to every that is connected.
-
-    I also need to have it support multiple players and not just one.
-    */
-
     var socket = io()
 
     /*OBJECTS*/
@@ -164,10 +156,10 @@
         document.onkeydown = function (e) {
 
             /*To make a static speed instead of a steady acceleration
+            */
 
             that.xMotionSpeed = 0
             that.yMotionSpeed = 0
-            */
 
             let keyCode = e.keyCode || e.which,
                 stringKey = keyCode.toString(),
@@ -201,19 +193,21 @@
         }
     }
 
+    /*OBJECT OFF OF PROTOTYPES*/
+    
+    var canvas = new Canvas()
+    
     /*SOCKET CONNECTION*/
 
-    socket.on('user joined', e => {
+    socket.on('user connected', e => {
+        console.log("user connected", e)
+    })
+
+    socket.on('lobbyUser', e => {
         console.log(e)
-        console.log("user joined")
     })
 
     socket.on('user left', e => {
-        console.log(e)
-        console.log("user left")
-    })
-
-    socket.on('socketdata', e => {
         console.log(e)
     })
 
@@ -240,29 +234,25 @@
 
     function frameRate(renderingObject) {
 
-        console.log(renderingObject)
-
         let canvas = renderingObject.canvas,
-            player = renderingObject.player,
-            enemy = renderingObject.enemy()
-
-        console.log(canvas, player, enemy)
+            player = renderingObject.player
+//            enemy = renderingObject.enemy()
 
         canvas.clearFrame()
         canvas.drawBorders()
 
         player.drawPlayer(canvas.ctx)
-        enemy.drawEnemy(canvas.ctx)
+//        enemy.drawEnemy(canvas.ctx)
 
         player.updatePlayerPosition()
-        enemy.updateEnemyPosition()
+//        enemy.updateEnemyPosition()
 
         player.collision(canvas.width, canvas.height)
-        enemy.collision(canvas.width, canvas.height)
+//      enemy.collision(canvas.width, canvas.height)
 
 
         /*Pass into the function the positional data of the player and the enemy.*/
-        endgame(player, enemy)
+//      endgame(player, enemy)
     }
 
     /*****
@@ -278,18 +268,15 @@
 
         /*GAME MECHANICS*/
 
-        socket.emit('add user', username);
+        socket.emit('add user to game', username);
 
         socket.on('login', e => {
-
-            console.log(e)
-
-            let renderingObject = {
-                'canvas': new Canvas(),
-                'player': new Player(e.clientData[0].x, e.clientData[0].y),
-                'enemy': function () {
-                    return new Enemy(e.clientData[1].x, e.clientData[1].y)
-                }
+            
+            let xPos = e.clientData.player.x,
+                yPos = e.clientData.player.y,
+                renderingObject = {
+                'canvas': canvas,
+                'player': new Player(xPos, yPos)
             }
 
             console.log(renderingObject)
@@ -298,10 +285,11 @@
             aunt.style.display = 'block'
 
             renderingObject.player.movePlayer()
+            
             window.inter = setInterval(() => {
                 frameRate(renderingObject)
             }, 10)
-            console.log("login")
+
         })
     }
 

@@ -9,7 +9,6 @@ function checkForEnemy(array) {
             }
         }
     }
-
     return returner
 }
 

@@ -2,57 +2,68 @@ const checkForEnemy = require('./checkForEnemy')
 
 function socketio(io) {
 
-    var numUsers = 0
-
     io.on('connection', socket => {
-        var addedUser = false
-        socket.renderingArray = []
 
-        if (checkForEnemy(socket.renderingArray)) {
-            socket.renderingArray.push({
-                'id': 'enemy',
-                'name': 'enemy',
-                'x': 50,
-                'y': 50,
-                'dead': false
-            })
+        var addedUser = false
+
+        socket.renderingObj = {
+            'player': {},
+            'enemy': {}
         }
 
-        socket.on('add user', username => {
-            if (addedUser) return
+        socket.emit('user connected', {
+            'userID': socket.id,
+            'message': 'you have connected'
+        })
 
-            ++numUsers
+        socket.broadcast.emit('lobbyUser', {
+            'message': 'there is a new user in the lobby'
+        })
 
-            socket.renderingArray.push({
+        socket.on('add user to game', username => {
+
+            socket.renderingObj.player = {
                 'id': socket.id,
                 'name': username,
                 'x': 25,
                 'y': 25,
                 'dead': false
-            })
+            }
 
-            addedUser = true
+            /*NEEDS TO STAY AFTER PLAYER HAS BEEN SET*/
+            /* let enemyCheck = socket.renderingObj.enemy.hasOwnProperty('id')
+
+             if (!enemyCheck) {
+                 socket.renderingObj.enemy = {
+                     'id': 'enemy',
+                     'name': 'enemy',
+                     'x': 50,
+                     'y': 50,
+                     'dead': false
+                 }
+             }*/
+
+            console.log(socket.renderingObj)
 
             socket.emit('login', {
-                'clientData': socket.renderingArray,
-                'numUsers': numUsers
+                'clientData': socket.renderingObj
             })
 
             socket.broadcast.emit('user joined', {
-                'clientData': socket.renderingArray,
-                'numUsers': numUsers
+                'clientData': socket.renderingObj
             })
         })
 
         socket.on('disconnect', () => {
-            if (addedUser) {
-                --numUsers
 
-                socket.broadcast.emit('user left', {
-                    username: socket.username,
-                    numUsers: numUsers
-                })
-            }
+            socket.emit('user left', {
+                'message': 'you left'
+            })
+
+            socket.broadcast.emit('user left', {
+                'message': 'user left'
+            })
+
         })
     })
 
