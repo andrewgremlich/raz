@@ -1,3 +1,9 @@
+/*
+TODO
+The drawing of the canvas needs to show the position of the connected players.  
+Having an interval in the current location isn't a very good spot.
+*/
+
 import Canvas from './app_modules/Canvas.js'
 import Enemy from './app_modules/Enemy.js'
 import Player from './app_modules/Player.js'
