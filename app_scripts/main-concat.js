@@ -140,6 +140,12 @@ Player.prototype.movePlayer = function () {
 
 /*End game function.*/
 
+/*
+TODO
+The drawing of the canvas needs to show the position of the connected players.  
+Having an interval in the current location isn't a very good spot.
+*/
+
 var socket$1 = io();
 
 /*OBJECTS*/

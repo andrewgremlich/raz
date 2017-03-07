@@ -74,7 +74,6 @@ function frameRate(renderingObject) {
         //            enemy = renderingObject.enemy()
 
     canvas.clearFrame()
-    canvas.drawBorders()
 
     player.drawPlayer(canvas.ctx)
         //        enemy.drawEnemy(canvas.ctx)
