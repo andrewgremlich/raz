@@ -1,15 +1,20 @@
-const express = require('express'),
+var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
-    port = process.env.PORT || 3000,
-      socketio = require('./server_modules/socketio')
+    port = process.env.PORT || 3000
 
-server.listen(port, function () {
-    console.log('Server listening at port %d', port)
+server.listen(port, () => {
+    console.log('server started!')
 })
 
-// Routing
-app.use(express.static(__dirname + '/app'))
+app.use(express.static(__dirname + '/public'))
 
-socketio(io)
+io.on('connection', (client) => {
+  client.on('event', (data) => {
+      console.log(data)
+  })
+  client.on('disconnect', () => {
+      console.log('user left')
+  })
+})
