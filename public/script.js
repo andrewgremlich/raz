@@ -4,6 +4,6 @@ socket.emit('event', {
     'hello': 'world'
 })
 
-socket.on('usrJoin', (data) => {
+socket.on('userJoin', (data) => {
     console.log(data)
 })

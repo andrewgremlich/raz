@@ -12,7 +12,9 @@ app.use(express.static(__dirname + '/public'))
 
 io.on('connection', (client) => {
 
-    client.broadcast.emit('usrJoin', 'new user joined in session')
+    client.broadcast.emit('userJoin', {
+        'message': 'new user joined in session'
+    })
 
     client.on('event', (data) => {
         console.log(data)
