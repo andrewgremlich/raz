@@ -1,23 +1,24 @@
 {
-  "name": "raz",
-  "version": "1.0.0",
-  "description": "Game time.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/andrewgremlich/raz.git"
-  },
-  "author": "Andrew Gremlich",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/andrewgremlich/raz/issues"
-  },
-  "homepage": "https://github.com/andrewgremlich/raz#readme",
-  "dependencies": {
-    "express": "^4.15.2",
-    "socket.io": "^1.7.3"
-  }
+    "name": "raz",
+    "version": "1.0.0",
+    "description": "Game time.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/andrewgremlich/raz.git"
+    },
+    "author": "Andrew Gremlich",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/andrewgremlich/raz/issues"
+    },
+    "homepage": "https://github.com/andrewgremlich/raz#readme",
+    "dependencies": {
+        "express": "^4.15.2",
+        "socket.io": "^1.7.3"
+    }
 }
