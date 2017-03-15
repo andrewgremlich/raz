@@ -11,10 +11,13 @@ server.listen(port, () => {
 app.use(express.static(__dirname + '/public'))
 
 io.on('connection', (client) => {
-  client.on('event', (data) => {
-      console.log(data)
-  })
-  client.on('disconnect', () => {
-      console.log('user left')
-  })
+
+    client.broadcast.emit('usrJoin', 'new user joined in session')
+
+    client.on('event', (data) => {
+        console.log(data)
+    })
+    client.on('disconnect', () => {
+        console.log('user left')
+    })
 })
