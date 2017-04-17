@@ -4,8 +4,10 @@
     "description": "Game time.",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node index.js"
+        "serve": "browser-sync start --files 'public' --server 'public'",
+        "roll": "rollup -i ./public/scripts/dev/main.js -f iife -o ./public/scripts/main.js --sourcemap",
+        "watch-roll": "rollup --input ./public/scripts/dev/main.js --output ./public/scripts/main.js --sourcemap --watch ./public/scripts",
+        "lint": "eslint ./public/scripts/dev/"
     },
     "repository": {
         "type": "git",
