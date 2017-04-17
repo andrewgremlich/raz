@@ -17,3 +17,5 @@ Thumbs.db
 /.env
 /app/static/script/main.css
 /app/static/style/main.css
+/public/scss/main.css.map
+/public/scss/main.css

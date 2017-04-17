@@ -18,7 +18,8 @@
     },
     "homepage": "https://github.com/andrewgremlich/raz#readme",
     "dependencies": {
-        "express": "^4.15.2",
-        "socket.io": "^1.7.3"
+        "browser-sync": "^2.18.8",
+        "rollup": "^0.41.6",
+        "rollup-watch": "^3.2.2"
     }
 }
