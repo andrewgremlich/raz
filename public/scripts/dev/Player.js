@@ -2,11 +2,11 @@
 Player prototype constructor
 */
 
-function Player() {
+function Player(spawnCoor) {
     this.width = 10
     this.height = 10
-    this.x = 25
-    this.y = 25
+    this.x = 50
+    this.y = 50
     this.xMotionSpeed = 0
     this.yMotionSpeed = 0
     this.radius = 10
