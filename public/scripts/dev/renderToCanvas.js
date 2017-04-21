@@ -12,18 +12,15 @@ let canvas = new Canvas(),
 
 function renderPlayersPositions(players) {
     
-    /*This if statement should see if any addtional players joined.
-      If any addtional players join then reset the Player rendering
-      Object for the canvas.*/
-    if (Object.keys(players).length !== Object.keys(PlayersObj).length) {
-        PlayersObj = false
-    }
-    
     /*This if statement checks to see if there is already a PlayersObj 
       object.  If there is a players object, then just set the 
       new player position for the draw.  If there is not a PlayersObj
-      set, then make the objects for the draw.*/
-    if (PlayersObj) {
+      set, then make the objects for the draw.
+      
+      It also checks if the incoming players object is the same length
+      as the objects stored.  This determines if a player has joined.
+      */
+    if (PlayersObj && Object.keys(players).length === Object.keys(PlayersObj).length) {
         for (let k in PlayersObj) {
             PlayersObj[k].setPlayerPosition(players[k])
         }
@@ -38,7 +35,7 @@ function renderPlayersPositions(players) {
     /*Run through the PlayersObj and activate all the methods for 
       interactivity to happen with the canvas*/
     for (let i in PlayersObj) {
-        PlayersObj[i].drawPlayer()
+        PlayersObj[i].drawPlayer(canvas.ctx)
         /*Add addtional object methods here*/
     }
 }
