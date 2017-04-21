@@ -2,11 +2,12 @@
 Player prototype constructor
 */
 
-function Player(spawnCoor) {
+function Player(spawnCoor, playerId) {
     this.width = 10
     this.height = 10
-    this.x = 50
-    this.y = 50
+    this.x = spawnCoor.x
+    this.y = spawnCoor.y
+    this.id = playerId
     this.xMotionSpeed = 0
     this.yMotionSpeed = 0
     this.radius = 10
@@ -28,9 +29,16 @@ Player.prototype.drawPlayer = function (ctx) {
 Player motion according to the arrow controls in the movePlayer method
 */
 
-Player.prototype.updatePlayerPosition = function () {
+/*!!!! Use this to update position in Firebase?*/
+/*Player.prototype.setPlayerPosition = function () {
     this.x += this.xMotionSpeed
     this.y += this.yMotionSpeed
+}*/
+
+
+Player.prototype.setPlayerPosition = function(playerPos) {
+    this.x = playerPos.x
+    this.y = playerPos.y
 }
 
 /*

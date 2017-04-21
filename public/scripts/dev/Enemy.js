@@ -1,7 +1,7 @@
 /*
 Enemy Prototype constructor
 */
-function Enemy(cwidth, cheight) {
+function Enemy(cwidth, cheight, pos) {
     this.width = 10
     this.height = 10
     this.xMotionSpeed = -3
@@ -12,6 +12,11 @@ function Enemy(cwidth, cheight) {
     this.x = this.wboundary - 100
     this.y = this.hboundary - 100
     this.collisions = 0
+}
+
+Enemy.prototype.setEnemyPosition = function(enemyPos) {
+    this.x = enemyPos.x
+    this.y = enemyPos.y
 }
 
 /*
@@ -30,6 +35,7 @@ Enemy.prototype.drawEnemy = function (ctx) {
 Automatic motion of the enemy circle.
 */
 
+/*!!!! Use this to update position in Firebase?*/
 Enemy.prototype.updateEnemyPosition = function () {
     this.x += this.xMotionSpeed
     this.y += this.yMotionSpeed

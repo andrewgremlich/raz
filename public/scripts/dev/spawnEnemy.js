@@ -2,25 +2,35 @@ import database from './firebaseConfig.js'
 
 let enemyRef = database.ref('enemy')
 
-function main(playerPos) {
-    
-    console.log(playerPos)
+/*Find the enemy position data and add it to the rendering object.*/
+function main(renderObj) {
+          
+        let rObj = renderObj
 
-    return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
 
-        enemyRef.once("value", snap => {
-            let value = snap.val(),
-                positions = {
-                    enemyPos: value,
-                    playerPos: playerPos
+            enemyRef.once("value", snap => {
+                let value = snap.val()
+
+                rObj.enemy = value
+                    
+                if (value) {
+                    resolve(rObj)
+                } else {
+                    /*
+                    This else statement should never happen.  
+                    Doesn't make much sense in the long run
+                    of things.  This could set the enemy just
+                    in case if the enemy isn't set.
+                    */
+                    enemyRef.set({
+                        x: 200,
+                        y: 50
+                    }, resolve(rObj))
                 }
-
-            if (value) {
-                resolve(positions)
-            }
-        })
+            })
         
-    })
+        })
 }
 
 export default main

@@ -2,38 +2,44 @@ import database from './firebaseConfig.js'
 
 let usersRef = database.ref('users')
 
-function main() {
+function main(renderObj) {
 
-    let razSessionToken,
-        nowToken = JSON.stringify(Date.now()),
-        spawnCoor = {
-            x: 50,
-            y: 50
+        let rObj = renderObj,
+            razSessionToken,
+            nowToken = JSON.stringify(Date.now()),
+            spawnCoor = {
+                x: 50,
+                y: 50
+            }
+
+        try {
+            razSessionToken = localStorage['razSessionToken']
+        } catch (e) {
+            console.warn('No sesion token detected.')
+            razSessionToken = false
         }
 
-    try {
-        razSessionToken = localStorage['razSessionToken']
-    } catch (e) {
-        console.warn('No sesion token detected.')
-        razSessionToken = false
-    }
-
-    return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
         
-        if (razSessionToken) {
-            usersRef.child(razSessionToken).once('value', snap => {
-                let newSpawnCoor = snap.val()
-                resolve(newSpawnCoor)
-            })
-        } else {
-            localStorage['razSessionToken'] = nowToken
+            if (razSessionToken) {
+                usersRef.child(razSessionToken).once('value', snap => {
+                    let newSpawnCoor = snap.val()
+                    
+                    rObj.players = newSpawnCoor
+                    
+                    resolve(rObj)
+                })
+            } else {
+                localStorage['razSessionToken'] = nowToken
 
-            usersRef.child(nowToken).set(spawnCoor)
-            
-            resolve(spawnCoor)
-        }
+                usersRef.child(nowToken).set(spawnCoor)
+                
+                rObj.players = spawnCoor
+                
+                resolve(rObj)
+            }
         
-    })
+        })
 }
 
 export default main
