@@ -4,6 +4,7 @@ let enemyRef = database.ref('enemy')
 
 /*Find the enemy position data and add it to the rendering object.*/
 function main(renderObj) {
+    
           
         let rObj = renderObj
 
@@ -13,6 +14,7 @@ function main(renderObj) {
                 let value = snap.val()
 
                 rObj.enemy = value
+                
                     
                 if (value) {
                     resolve(rObj)

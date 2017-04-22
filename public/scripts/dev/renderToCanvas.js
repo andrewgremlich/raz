@@ -36,8 +36,9 @@ function renderPlayersPositions(players) {
       interactivity to happen with the canvas*/
     for (let i in PlayersObj) {
         PlayersObj[i].drawPlayer(canvas.ctx)
-        /*Add addtional object methods here*/
     }
+        /*!!!!Add addtional object methods here*/
+    PlayersObj[localStorage['razSessionToken']].movePlayer()
 }
 
 function renderEnemyPosition(enemy) {
@@ -46,13 +47,14 @@ function renderEnemyPosition(enemy) {
       is already set, then set the player position with the incoming
       parameter.  If not set, then create a new Enemy object.*/
     if (EnemyObj) {
-        EnemyObj.setEnemyPosition(enemy)
+        EnemyObj.setEnemyPosition()
     } else {
         EnemyObj = new Enemy(canvas.width, canvas.height)
     }
     
     EnemyObj.drawEnemy(canvas.ctx)
-    /*Add addtional object methods here*/
+    EnemyObj.collision(canvas.width, canvas.height)
+    setInterval(EnemyObj.setMotion(), 1000)
 }
  
 function renderToCanvas(renderingObj) {
@@ -62,7 +64,7 @@ function renderToCanvas(renderingObj) {
     canvas.clearFrame()
     canvas.drawBorders()
     
-    renderEnemyPosition(renderingObj.enemy)
+    renderEnemyPosition()
     renderPlayersPositions(renderingObj.players)
     
     /*

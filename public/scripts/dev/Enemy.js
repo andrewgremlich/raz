@@ -1,3 +1,5 @@
+import database from './firebaseConfig.js'
+
 /*
 Enemy Prototype constructor
 */
@@ -7,10 +9,8 @@ function Enemy(cwidth, cheight, pos) {
     this.xMotionSpeed = -3
     this.yMotionSpeed = -3
     this.radius = 10
-    this.wboundary = cwidth
-    this.hboundary = cheight
-    this.x = this.wboundary - 100
-    this.y = this.hboundary - 100
+    this.x = 500
+    this.y = 500
     this.collisions = 0
 }
 
@@ -35,10 +35,23 @@ Enemy.prototype.drawEnemy = function (ctx) {
 Automatic motion of the enemy circle.
 */
 
+
+/*
+NOTE!!!  
+
+It is almost as if for a better user experience for a simple game, the enemy rendering has to be
+done only on client side.  So there would be no information firebase's side with the enemy position.
+*/
+
 /*!!!! Use this to update position in Firebase?*/
-Enemy.prototype.updateEnemyPosition = function () {
+Enemy.prototype.setMotion = function () {
     this.x += this.xMotionSpeed
     this.y += this.yMotionSpeed
+    
+        database.ref('enemy').set({
+            x: this.x,
+            y: this.y
+        })
 }
 
 /*

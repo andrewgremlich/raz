@@ -9,11 +9,11 @@ function everyOneElseSpawn(renderObj) {
         
         return new Promise(resolve => {
             
-            database.ref().on("value", snap => {
+            database.ref('users').on("value", snap => {
                 let databaseValue = snap.val()
 
-                rObj.players = databaseValue.users
-                rObj.enemy = databaseValue.enemy
+                rObj.players = databaseValue
+//                rObj.enemy = databaseValue.enemy
                 
                 renderToCanvas(rObj)
             })

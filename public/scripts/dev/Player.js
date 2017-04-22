@@ -1,3 +1,5 @@
+import database from './firebaseConfig.js'
+
 /*
 Player prototype constructor
 */
@@ -73,20 +75,40 @@ Player.prototype.movePlayer = function () {
             stringKey = keyCode.toString(),
             move = {
                 '37': function () {
+                    
+                    let leftMove = that.x - 2
+                    
+                    database.ref(`users/${localStorage['razSessionToken']}/x`).set(leftMove)
+                    
                     /*arrow left*/
-                    that.xMotionSpeed = that.xMotionSpeed - 2
+//                    that.xMotionSpeed = that.xMotionSpeed - 2
                 },
                 '38': function () {
+                    
+                    let upMove = that.y - 2
+                    
+                    database.ref(`users/${localStorage['razSessionToken']}/x`).set(upMove)
+                    
                     /*arrow up*/
-                    that.yMotionSpeed = that.yMotionSpeed - 2
+//                    that.yMotionSpeed = that.yMotionSpeed - 2
                 },
                 '39': function () {
+                    
+                    let rightMove = that.x + 2
+                    
+                    database.ref(`users/${localStorage['razSessionToken']}/y`).set(rightMove)
+                    
                     /*arrow right*/
-                    that.xMotionSpeed = that.xMotionSpeed + 2
+//                    that.xMotionSpeed = that.xMotionSpeed + 2
                 },
                 '40': function () {
+                    
+                    let downMove = that.y + 2
+                    
+                    database.ref(`users/${localStorage['razSessionToken']}/y`).set(downMove)
+                    
                     /*arrow down*/
-                    that.yMotionSpeed = that.yMotionSpeed + 2
+//                    that.yMotionSpeed = that.yMotionSpeed + 2
                 }
             }
 

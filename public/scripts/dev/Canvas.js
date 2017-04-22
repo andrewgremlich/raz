@@ -5,8 +5,11 @@ Canvas prototype constructor
 function Canvas() {
     this.canvasElement = document.getElementById('myCanvas')
     this.ctx = this.canvasElement.getContext('2d')
-    this.width = this.canvasElement.width
-    this.height = this.canvasElement.height
+    this.width = 800
+    this.height = 800
+    
+    document.querySelector('#myCanvas').width = this.width
+    document.querySelector('#myCanvas').height = this.height
 }
 
 /*Prototype method to draw the borders on the canvas.  Purely decorative*/
