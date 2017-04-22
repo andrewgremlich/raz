@@ -4,7 +4,7 @@ import spawnEnemy from './spawnEnemy.js'
 import everyOneElseSpawn from './everyOneElseSpawn.js'
 
 let renderingObject = {
-        enemy: {},
+//        enemy: {},
         players: {}
     }
 
@@ -13,5 +13,5 @@ Start game by spawning the client player first,
 then the enemy, then everyone else. 
 */
 spawn(renderingObject)
-    .then(spawnEnemy)
+//    .then(spawnEnemy)
     .then(everyOneElseSpawn)

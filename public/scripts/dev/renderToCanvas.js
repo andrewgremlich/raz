@@ -21,10 +21,12 @@ function renderPlayersPositions(players) {
       as the objects stored.  This determines if a player has joined.
       */
     if (PlayersObj && Object.keys(players).length === Object.keys(PlayersObj).length) {
+        /*Draw for the same amount of players in database*/
         for (let k in PlayersObj) {
             PlayersObj[k].setPlayerPosition(players[k])
         }
-    } else {
+    } else {        
+        /*Initial draw and new incoming player redraw*/
         PlayersObj = {}
         
         for (let j in players) {
@@ -58,13 +60,11 @@ function renderEnemyPosition(enemy) {
 }
  
 function renderToCanvas(renderingObj) {
-
-    console.log(renderingObj)
     
     canvas.clearFrame()
     canvas.drawBorders()
     
-    renderEnemyPosition()
+//    renderEnemyPosition()
     renderPlayersPositions(renderingObj.players)
     
     /*

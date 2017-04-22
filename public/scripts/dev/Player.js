@@ -62,64 +62,37 @@ Directional control with the arrow keys.
 
 Player.prototype.movePlayer = function () {
 
-    var that = this
+    var that = this,
+        leftMove = that.x - 2,
+        upMove = that.y - 2,
+        rightMove = that.x + 2,
+        downMove = that.y + 2
 
     document.onkeydown = function (e) {
-
-        /*To make a static speed instead of a steady acceleration*/
-
-        that.xMotionSpeed = 0
-        that.yMotionSpeed = 0
-
         let keyCode = e.keyCode || e.which,
             stringKey = keyCode.toString(),
+            xCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/x`),
+            yCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/y`)
             move = {
                 '37': function () {
-                    
-                    let leftMove = that.x - 2
-                    
-                    database.ref(`users/${localStorage['razSessionToken']}/x`).set(leftMove)
-                    
-                    /*arrow left*/
-//                    that.xMotionSpeed = that.xMotionSpeed - 2
+//                    console.log("firing left arrow!")
+                    xCoorDatabase.set(leftMove)
                 },
                 '38': function () {
-                    
-                    let upMove = that.y - 2
-                    
-                    database.ref(`users/${localStorage['razSessionToken']}/x`).set(upMove)
-                    
-                    /*arrow up*/
-//                    that.yMotionSpeed = that.yMotionSpeed - 2
+//                    console.log("firing up arrow!")
+                    yCoorDatabase.set(upMove)
                 },
                 '39': function () {
-                    
-                    let rightMove = that.x + 2
-                    
-                    database.ref(`users/${localStorage['razSessionToken']}/y`).set(rightMove)
-                    
-                    /*arrow right*/
-//                    that.xMotionSpeed = that.xMotionSpeed + 2
+//                    console.log("firing right arrow!")
+                    xCoorDatabase.set(rightMove)
                 },
                 '40': function () {
-                    
-                    let downMove = that.y + 2
-                    
-                    database.ref(`users/${localStorage['razSessionToken']}/y`).set(downMove)
-                    
-                    /*arrow down*/
-//                    that.yMotionSpeed = that.yMotionSpeed + 2
+//                    console.log("firing down arrow!")
+                    yCoorDatabase.set(downMove)
                 }
             }
 
         move[stringKey]()
-    }
-
-    document.onkeyup = function () {
-
-        that.xMotionSpeed = 0
-        that.yMotionSpeed = 0
-
     }
 }
 
