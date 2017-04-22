@@ -12,7 +12,6 @@ function everyOneElseSpawn(renderObj) {
             database.ref('users').on("value", snap => {
                 let databaseValue = snap.val()
                 rObj.players = databaseValue
-//                rObj.enemy = databaseValue.enemy
                 renderToCanvas(rObj)
             })
             

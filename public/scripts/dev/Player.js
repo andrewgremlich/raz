@@ -10,8 +10,6 @@ function Player(spawnCoor, playerId) {
     this.x = spawnCoor.x
     this.y = spawnCoor.y
     this.id = playerId
-    this.xMotionSpeed = 0
-    this.yMotionSpeed = 0
     this.radius = 10
 }
 
@@ -27,18 +25,9 @@ Player.prototype.drawPlayer = function (ctx) {
     ctx.closePath()
 }
 
-/*
-Player motion according to the arrow controls in the movePlayer method
-*/
+/*Set player position*/
 
-/*!!!! Use this to update position in Firebase?*/
-/*Player.prototype.setPlayerPosition = function () {
-    this.x += this.xMotionSpeed
-    this.y += this.yMotionSpeed
-}*/
-
-
-Player.prototype.setPlayerPosition = function(playerPos) {
+Player.prototype.setPlayerPosition = function (playerPos) {
     this.x = playerPos.x
     this.y = playerPos.y
 }
@@ -47,7 +36,7 @@ Player.prototype.setPlayerPosition = function(playerPos) {
 Evaluate collision of the player with the edges of the play area.
 */
 
-Player.prototype.collision = function (cwidth, cheight) {
+Player.prototype.collisionWithBorder = function (cwidth, cheight) {
 
     var xPos = this.x + this.xMotionSpeed,
         yPos = this.y + this.yMotionSpeed
@@ -60,38 +49,59 @@ Player.prototype.collision = function (cwidth, cheight) {
 Directional control with the arrow keys.
 */
 
-Player.prototype.movePlayer = function () {
+Player.prototype.movePlayer = function (cwidth, cheight) {
 
     var that = this,
         leftMove = that.x - 2,
         upMove = that.y - 2,
         rightMove = that.x + 2,
-        downMove = that.y + 2
+        downMove = that.y + 2,
+        xPos = that.x,
+        yPos = that.y,
+        borderCollisionX = xPos > cwidth - that.radius || xPos < that.radius,
+        borderCollisionY = yPos > cheight - that.radius || yPos < that.radius
 
     document.onkeydown = function (e) {
         let keyCode = e.keyCode || e.which,
             stringKey = keyCode.toString(),
             xCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/x`),
-            yCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/y`)
+            yCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/y`),
             move = {
                 '37': function () {
-//                    console.log("firing left arrow!")
+                    //console.log("firing left arrow!")
                     xCoorDatabase.set(leftMove)
                 },
                 '38': function () {
-//                    console.log("firing up arrow!")
+                    //console.log("firing up arrow!")
                     yCoorDatabase.set(upMove)
                 },
                 '39': function () {
-//                    console.log("firing right arrow!")
+                    //console.log("firing right arrow!")
                     xCoorDatabase.set(rightMove)
                 },
                 '40': function () {
-//                    console.log("firing down arrow!")
+                    //console.log("firing down arrow!")
                     yCoorDatabase.set(downMove)
                 }
             }
 
+        if (borderCollisionX) {
+            console.log("collision x!")
+            if (xPos > cwidth - that.radius) {
+                move['37']()
+            } else if (xPos < that.radius) {
+                move['39']()
+            }
+            return
+        } else if (borderCollisionY) {
+            console.log("collision y!")
+            if (yPos > cheight - that.radius) {
+                move['38']()
+            } else if (yPos < that.radius) {
+                move['40']()
+            }
+            return
+        }
         move[stringKey]()
     }
 }

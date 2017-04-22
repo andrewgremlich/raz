@@ -14,7 +14,6 @@ function main(renderObj) {
                 let value = snap.val()
 
                 rObj.enemy = value
-                
                     
                 if (value) {
                     resolve(rObj)

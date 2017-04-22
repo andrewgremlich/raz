@@ -43,7 +43,7 @@ It is almost as if for a better user experience for a simple game, the enemy ren
 done only on client side.  So there would be no information firebase's side with the enemy position.
 */
 
-/*!!!! Use this to update position in Firebase?*/
+/*!!!! Use this to update position in Firebase? Should be set at intervals.  But needs to be server side and not client side.*/
 Enemy.prototype.setMotion = function () {
     this.x += this.xMotionSpeed
     this.y += this.yMotionSpeed

@@ -40,7 +40,7 @@ function renderPlayersPositions(players) {
         PlayersObj[i].drawPlayer(canvas.ctx)
     }
         /*!!!!Add addtional object methods here*/
-    PlayersObj[localStorage['razSessionToken']].movePlayer()
+    PlayersObj[localStorage['razSessionToken']].movePlayer(canvas.width, canvas.height)
 }
 
 function renderEnemyPosition(enemy) {
@@ -64,7 +64,6 @@ function renderToCanvas(renderingObj) {
     canvas.clearFrame()
     canvas.drawBorders()
     
-//    renderEnemyPosition()
     renderPlayersPositions(renderingObj.players)
     
     /*

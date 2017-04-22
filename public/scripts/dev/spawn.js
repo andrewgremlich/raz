@@ -24,18 +24,13 @@ function main(renderObj) {
             if (razSessionToken) {
                 usersRef.child(razSessionToken).once('value', snap => {
                     let newSpawnCoor = snap.val()
-                    
                     rObj.players = newSpawnCoor
-                    
                     resolve(rObj)
                 })
             } else {
                 localStorage['razSessionToken'] = nowToken
-
                 usersRef.child(nowToken).set(spawnCoor)
-                
                 rObj.players = spawnCoor
-                
                 resolve(rObj)
             }
         
