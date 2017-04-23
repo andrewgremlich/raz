@@ -28,7 +28,6 @@ function renderPlayersPositions(players) {
     } else {        
         /*Initial draw and new incoming player redraw*/
         PlayersObj = {}
-        
         for (let j in players) {
             PlayersObj[j] = new Player(players[j], j)
         }
@@ -63,6 +62,7 @@ function renderToCanvas(renderingObj) {
     
     canvas.clearFrame()
     canvas.drawBorders()
+    
     
     renderPlayersPositions(renderingObj.players)
     

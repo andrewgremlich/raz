@@ -59,13 +59,14 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
         xPos = that.x,
         yPos = that.y,
         borderCollisionX = xPos > cwidth - that.radius || xPos < that.radius,
-        borderCollisionY = yPos > cheight - that.radius || yPos < that.radius
+        borderCollisionY = yPos > cheight - that.radius || yPos < that.radius,
+        token = localStorage['razSessionToken']
 
     document.onkeydown = function (e) {
         let keyCode = e.keyCode || e.which,
             stringKey = keyCode.toString(),
-            xCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/x`),
-            yCoorDatabase = database.ref(`users/${localStorage['razSessionToken']}/y`),
+            xCoorDatabase = database.ref(`users/${token}/x`),
+            yCoorDatabase = database.ref(`users/${token}/y`),
             move = {
                 '37': function () {
                     //console.log("firing left arrow!")

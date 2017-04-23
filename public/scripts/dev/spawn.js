@@ -1,4 +1,6 @@
 import database from './firebaseConfig.js'
+import makeid from './makeid.js'
+import renderToCanvas from  './renderToCanvas.js'
 
 let usersRef = database.ref('users')
 
@@ -6,7 +8,7 @@ function main(renderObj) {
 
         let rObj = renderObj,
             razSessionToken,
-            nowToken = JSON.stringify(Date.now()),
+            nowToken = makeid(),
             spawnCoor = {
                 x: 50,
                 y: 50
