@@ -1,4 +1,5 @@
 import database from './firebaseConfig.js'
+import mobileCheck from './mobilecheck.js'
 
 /*
 Player prototype constructor
@@ -71,59 +72,76 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
         yPos = that.y,
         borderCollisionX = xPos > cwidth - that.radius || xPos < that.radius,
         borderCollisionY = yPos > cheight - that.radius || yPos < that.radius,
-        token = localStorage['razSessionToken']
-
-    document.onkeydown = function (e) {
-        let keyCode = e.keyCode || e.which,
-            stringKey = keyCode.toString(),
-            xCoorDatabase = database.ref(`users/${token}/x`),
-            yCoorDatabase = database.ref(`users/${token}/y`),
-            move = {
-                '37': function () {
-                    //console.log("firing left arrow!")
-                    that.xMotionSpeed = that.xMotionSpeed - 2
-                    xCoorDatabase.set(leftMove)
-                },
-                '38': function () {
-                    //console.log("firing up arrow!")
-                    that.yMotionSpeed = that.yMotionSpeed - 2
-                    yCoorDatabase.set(upMove)
-                },
-                '39': function () {
-                    //console.log("firing right arrow!")
-                    that.xMotionSpeed = that.xMotionSpeed + 2
-                    xCoorDatabase.set(rightMove)
-                },
-                '40': function () {
-                    //console.log("firing down arrow!")
-                    yCoorDatabase.set(downMove)
-                    that.yMotionSpeed = that.yMotionSpeed + 2
-                }
+        token = localStorage['razSessionToken'],
+        xCoorDatabase = database.ref(`users/${token}/x`),
+        yCoorDatabase = database.ref(`users/${token}/y`),
+        move = {
+            'left': function () {
+                //console.log("firing left arrow!")
+                that.xMotionSpeed = that.xMotionSpeed - 2
+                xCoorDatabase.set(leftMove)
+            },
+            'up': function () {
+                //console.log("firing up arrow!")
+                that.yMotionSpeed = that.yMotionSpeed - 2
+                yCoorDatabase.set(upMove)
+            },
+            'right': function () {
+                //console.log("firing right arrow!")
+                that.xMotionSpeed = that.xMotionSpeed + 2
+                xCoorDatabase.set(rightMove)
+            },
+            'down': function () {
+                //console.log("firing down arrow!")
+                yCoorDatabase.set(downMove)
+                that.yMotionSpeed = that.yMotionSpeed + 2
             }
-
-        if (borderCollisionX) {
-            console.log("collision x!")
-            if (xPos > cwidth - that.radius) {
-                move['37']()
-            } else if (xPos < that.radius) {
-                move['39']()
-            }
-            return
-        } else if (borderCollisionY) {
-            console.log("collision y!")
-            if (yPos > cheight - that.radius) {
-                move['38']()
-            } else if (yPos < that.radius) {
-                move['40']()
-            }
-            return
         }
-        move[stringKey]()
+
+    if (mobileCheck) {
+        console.log('on mobile')
+        document.querySelector(".d-pad").onclick = e => {
+            let target = e.target,
+                targetID = target.getAttribute('id'),
+                direction = targetID.replace("d-", "")
+
+            move[direction]()
+        }
     }
     
-    document.onkeyup = function () {
-        that.xMotionSpeed = 0
-        that.yMotionSpeed = 0
+    if (!mobileCheck) {
+        console.log('not mobile')
+        document.onkeydown = function (e) {
+            let keyCode = e.keyCode || e.which,
+                stringKey = keyCode.toString()
+
+            if (borderCollisionX) {
+                console.log("collision x!")
+                if (xPos > cwidth - that.radius) {
+                    move['left']()
+                } else if (xPos < that.radius) {
+                    move['right']()
+                }
+                return
+            } else if (borderCollisionY) {
+                console.log("collision y!")
+                if (yPos > cheight - that.radius) {
+                    move['up']()
+                } else if (yPos < that.radius) {
+                    move['down']()
+                }
+                return
+            }
+            if (stringKey === "37") move['left']()
+            if (stringKey === "38") move['up']()
+            if (stringKey === "39") move['right']()
+            if (stringKey === "40") move['down']()
+        }
+
+        document.onkeyup = function () {
+            that.xMotionSpeed = 0
+            that.yMotionSpeed = 0
+        }
     }
 }
 

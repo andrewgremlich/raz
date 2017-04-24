@@ -1,7 +1,69 @@
 @import './partials/_reset.scss';
 
+$d-pad: #ac4b4b;
+$d-pad-border-radius: .75em;
 canvas {
     background: #eee;
     display: block;
     margin: 0 auto;
+}
+
+.d-pad {
+    width: 9em;
+    height: 9em;
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+}
+
+.d {
+    width: 3em;
+    height: 3em;
+    background: $d-pad;
+    position: absolute;
+    border-top: .05em solid lighten($d-pad, 40%);
+    border-bottom: .05em solid darken($d-pad, 20%);
+    &:hover,
+    &:active {
+        background: lighten($d-pad, 15%);
+    }
+}
+
+.up {
+    left: 3em;
+    top: 0;
+    border-radius: $d-pad-border-radius;
+    .label {
+        top: -9em;
+    }
+}
+
+.right {
+    top: 3em;
+    right: 0;
+    border-radius: $d-pad-border-radius;
+    .label {
+        top: -3em;
+        right: -6em;
+    }
+}
+
+.down {
+    left: 3em;
+    bottom: 0;
+    border-radius: $d-pad-border-radius;
+    .label {
+        bottom: -3em;
+    }
+}
+
+.left {
+    top: 3em;
+    left: 0;
+    border-radius: $d-pad-border-radius;
+    .label {
+        top: -3em;
+        left: -6em;
+    }
 }
