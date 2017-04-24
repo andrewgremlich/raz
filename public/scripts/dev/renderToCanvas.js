@@ -4,7 +4,16 @@ import Canvas from './Canvas.js'
 import Enemy from './Enemy.js'
 
 /*******************FUNCTIONS****************/
-import endgame from './endgame.js'
+function endgame(player, enemy) {
+    
+    var enemyRadius = enemy.radius + enemy.collisions * 1.75,
+        playerRadius = player.radius,
+        middleEvalExpr = Math.pow(player.x - enemy.x, 2) + Math.pow(player.y - enemy.y, 2),
+        lowerEval = Math.pow(playerRadius - enemyRadius, 2) <= middleEvalExpr,
+        higherEval = middleEvalExpr <= Math.pow(playerRadius + enemyRadius, 2)
+
+    return lowerEval && higherEval 
+}
 
 let canvas = new Canvas(),
     PlayersObj,
@@ -59,6 +68,10 @@ function renderEnemyPosition(enemy) {
     EnemyObj.drawEnemy(canvas.ctx)
     EnemyObj.collision(canvas.width, canvas.height)
     EnemyObj.setMotion()
+    let gameOver = endgame(PlayersObj[localStorage['razSessionToken']], EnemyObj)
+    if (gameOver) {
+        document.querySelector('body').innerHTML = "<h1>Game Over!</h1><p>Refresh the page to start again.</p>"
+    }
 }
 
 function renderToCanvas(renderingObj, enemy) {
@@ -72,10 +85,7 @@ function renderToCanvas(renderingObj, enemy) {
         renderEnemyPosition()
         renderPlayersPositions()
     }
-
-    /*
-    endgame(player, enemy)
-    */
+    
 }
 
 export default renderToCanvas

@@ -99,7 +99,6 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
         }
 
     if (mobileCheck) {
-        console.log('on mobile')
         document.querySelector(".d-pad").onclick = e => {
             let target = e.target,
                 targetID = target.getAttribute('id'),
@@ -110,7 +109,6 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
     }
     
     if (!mobileCheck) {
-        console.log('not mobile')
         document.onkeydown = function (e) {
             let keyCode = e.keyCode || e.which,
                 stringKey = keyCode.toString()
@@ -132,10 +130,11 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
                 }
                 return
             }
-            if (stringKey === "37") move['left']()
-            if (stringKey === "38") move['up']()
-            if (stringKey === "39") move['right']()
-            if (stringKey === "40") move['down']()
+            
+            if (stringKey === '37') move['left']()
+            if (stringKey === '38') move['up']()
+            if (stringKey === '39') move['right']()
+            if (stringKey === '40') move['down']()
         }
 
         document.onkeyup = function () {

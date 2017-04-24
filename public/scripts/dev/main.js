@@ -22,6 +22,10 @@ window.onbeforeunload = function (e) {
     localStorage.removeItem('razSessionToken')
 }
 
+function reload() {
+    location.reload()
+}
+
 /*
 
 TO-DO
