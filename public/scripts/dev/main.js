@@ -2,6 +2,7 @@
 import spawn from './spawn.js'
 import spawnEnemy from './spawnEnemy.js'
 import everyOneElseSpawn from './everyOneElseSpawn.js'
+import enemyspawn from './enemyspawn.js'
 import database from './firebaseConfig.js'
 
 let renderingObject = {
@@ -14,6 +15,7 @@ then the enemy, then everyone else.
 */
 spawn(renderingObject)
     .then(everyOneElseSpawn)
+    .then(enemyspawn)
 
 window.onbeforeunload = function (e) {
     database.ref(`users/${localStorage['razSessionToken']}`).set(null)

@@ -11,7 +11,7 @@ let canvas = new Canvas(),
     EnemyObj
 
 function renderPlayersPositions(players) {
-    
+
     /*This if statement checks to see if there is already a PlayersObj 
       object.  If there is a players object, then just set the 
       new player position for the draw.  If there is not a PlayersObj
@@ -20,52 +20,59 @@ function renderPlayersPositions(players) {
       It also checks if the incoming players object is the same length
       as the objects stored.  This determines if a player has joined.
       */
-    if (PlayersObj && Object.keys(players).length === Object.keys(PlayersObj).length) {
-        /*Draw for the same amount of players in database*/
-        for (let k in PlayersObj) {
-            PlayersObj[k].setPlayerPosition(players[k])
-        }
-    } else {        
-        /*Initial draw and new incoming player redraw*/
-        PlayersObj = {}
-        for (let j in players) {
-            PlayersObj[j] = new Player(players[j], j)
+
+    if (players) {
+        if (PlayersObj && Object.keys(players).length === Object.keys(PlayersObj).length) {
+            /*Draw for the same amount of players in database*/
+            for (let k in PlayersObj) {
+                PlayersObj[k].setPlayerPosition(players[k])
+            }
+        } else {
+            /*Initial draw and new incoming player redraw*/
+            PlayersObj = {}
+            for (let j in players) {
+                PlayersObj[j] = new Player(players[j], j)
+            }
         }
     }
-    
+
+    /*!!!!Add addtional object methods here*/
+    PlayersObj[localStorage['razSessionToken']].movePlayer(canvas.width, canvas.height)
+    PlayersObj[localStorage['razSessionToken']].motionSpeedToPosition()
+
     /*Run through the PlayersObj and activate all the methods for 
       interactivity to happen with the canvas*/
     for (let i in PlayersObj) {
         PlayersObj[i].drawPlayer(canvas.ctx)
     }
-        /*!!!!Add addtional object methods here*/
-    PlayersObj[localStorage['razSessionToken']].movePlayer(canvas.width, canvas.height)
 }
 
 function renderEnemyPosition(enemy) {
-    
+
     /*Check if the EnemyObj is already set.  If the EnemyObj variable
       is already set, then set the player position with the incoming
       parameter.  If not set, then create a new Enemy object.*/
-    if (EnemyObj) {
-        EnemyObj.setEnemyPosition()
-    } else {
+    if (!EnemyObj) {
         EnemyObj = new Enemy(canvas.width, canvas.height)
     }
-    
+
     EnemyObj.drawEnemy(canvas.ctx)
     EnemyObj.collision(canvas.width, canvas.height)
-    setInterval(EnemyObj.setMotion(), 1000)
+    EnemyObj.setMotion()
 }
- 
-function renderToCanvas(renderingObj) {
-    
+
+function renderToCanvas(renderingObj, enemy) {
+
     canvas.clearFrame()
     canvas.drawBorders()
-    
-    
-    renderPlayersPositions(renderingObj.players)
-    
+
+    if (!PlayersObj) renderPlayersPositions(renderingObj.players)
+
+    if (enemy) {
+        renderEnemyPosition()
+        renderPlayersPositions()
+    }
+
     /*
     endgame(player, enemy)
     */

@@ -13,6 +13,7 @@ function everyOneElseSpawn(renderObj) {
                 let databaseValue = snap.val()
                 rObj.players = databaseValue
                 renderToCanvas(rObj)
+                resolve(rObj)
             })
             
         })

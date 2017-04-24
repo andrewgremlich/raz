@@ -9,6 +9,8 @@ function Player(spawnCoor, playerId) {
     this.height = 10
     this.x = spawnCoor.x
     this.y = spawnCoor.y
+    this.xMotionSpeed = 0
+    this.yMotionSpeed = 0
     this.id = playerId
     this.radius = 10
 }
@@ -30,6 +32,15 @@ Player.prototype.drawPlayer = function (ctx) {
 Player.prototype.setPlayerPosition = function (playerPos) {
     this.x = playerPos.x
     this.y = playerPos.y
+}
+
+/*
+Player motion according to the arrow controls in the movePlayer method
+*/
+
+Player.prototype.motionSpeedToPosition = function () {
+    this.x += this.xMotionSpeed
+    this.y += this.yMotionSpeed
 }
 
 /*
@@ -70,19 +81,23 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
             move = {
                 '37': function () {
                     //console.log("firing left arrow!")
+                    that.xMotionSpeed = that.xMotionSpeed - 2
                     xCoorDatabase.set(leftMove)
                 },
                 '38': function () {
                     //console.log("firing up arrow!")
+                    that.yMotionSpeed = that.yMotionSpeed - 2
                     yCoorDatabase.set(upMove)
                 },
                 '39': function () {
                     //console.log("firing right arrow!")
+                    that.xMotionSpeed = that.xMotionSpeed + 2
                     xCoorDatabase.set(rightMove)
                 },
                 '40': function () {
                     //console.log("firing down arrow!")
                     yCoorDatabase.set(downMove)
+                    that.yMotionSpeed = that.yMotionSpeed + 2
                 }
             }
 
@@ -104,6 +119,11 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
             return
         }
         move[stringKey]()
+    }
+    
+    document.onkeyup = function () {
+        that.xMotionSpeed = 0
+        that.yMotionSpeed = 0
     }
 }
 

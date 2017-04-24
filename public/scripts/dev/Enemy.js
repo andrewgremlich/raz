@@ -13,11 +13,11 @@ function Enemy(cwidth, cheight, pos) {
     this.y = 500
     this.collisions = 0
 }
-
+/*
 Enemy.prototype.setEnemyPosition = function(enemyPos) {
     this.x = enemyPos.x
     this.y = enemyPos.y
-}
+}*/
 
 /*
 Draw the enemy circle on the canvas element.
@@ -47,11 +47,6 @@ done only on client side.  So there would be no information firebase's side with
 Enemy.prototype.setMotion = function () {
     this.x += this.xMotionSpeed
     this.y += this.yMotionSpeed
-    
-        database.ref('enemy').set({
-            x: this.x,
-            y: this.y
-        })
 }
 
 /*
