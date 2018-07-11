@@ -2,29 +2,38 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>raz</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>raz</title>
 
-    <script src="https://www.gstatic.com/firebasejs/3.7.6/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.7.6/firebase-database.js"></script>
-
-    <link rel="stylesheet" href="./scss/main.css" type="text/css">
-
+  <!-- <link rel="stylesheet" href="./style/main.css" type="text/css"> -->
 </head>
 
 <body>
 
-    <canvas id="myCanvas"></canvas>
+  <h1>Hello world!</h1>
 
-    <div class="d-pad">
+  <!-- <canvas id="myCanvas"></canvas> -->
+
+  <!-- <div class="d-pad">
         <div id="d-up" class="button d up"><span class="label">&#9650;</span></div>
         <div id="d-right" class="button d right"><span class="label">&#9654;</span></div>
         <div id="d-down" class="button d down"><span class="label">&#9660;</span></div>
         <div id="d-left" class="button d left"><span class="label">&#9664;</span></div>
-    </div>
+    </div> -->
 
-    <script src="./scripts/main.js"></script>
+  <!-- <script type="module" src="/scripts/main.js"></script> -->
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+
+    socket.emit('chat message', 'Hello there!');
+
+    socket.on('chat message', function(msg){
+      console.log(msg);
+    });
+  </script>
 
 </body>
 
