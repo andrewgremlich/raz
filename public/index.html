@@ -6,34 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>raz</title>
 
-  <!-- <link rel="stylesheet" href="./style/main.css" type="text/css"> -->
+  <link rel="stylesheet" href="./style/main.css" type="text/css">
 </head>
 
 <body>
 
-  <h1>Hello world!</h1>
-
-  <!-- <canvas id="myCanvas"></canvas> -->
-
-  <!-- <div class="d-pad">
-        <div id="d-up" class="button d up"><span class="label">&#9650;</span></div>
-        <div id="d-right" class="button d right"><span class="label">&#9654;</span></div>
-        <div id="d-down" class="button d down"><span class="label">&#9660;</span></div>
-        <div id="d-left" class="button d left"><span class="label">&#9664;</span></div>
-    </div> -->
-
-  <!-- <script type="module" src="/scripts/main.js"></script> -->
-
+  <canvas id="myCanvas"></canvas>
+  
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io();
-
-    socket.emit('chat message', 'Hello there!');
-
-    socket.on('chat message', function(msg){
-      console.log(msg);
-    });
-  </script>
+  <script type="module" src="/scripts/main.js"></script>
 
 </body>
 

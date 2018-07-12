@@ -1,7 +1,7 @@
 /*
 Enemy Prototype constructor
 */
-function Enemy(cwidth, cheight, pos) {
+export function Enemy(cwidth, cheight, pos) {
   this.width = 10;
   this.height = 10;
   this.xMotionSpeed = -3;
@@ -70,5 +70,3 @@ Enemy.prototype.collision = function (cwidth, cheight) {
   }
 
 };
-
-export default Enemy;

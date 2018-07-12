@@ -1,11 +1,7 @@
-import database from './firebaseConfig.js';
-import mobileCheck from './mobilecheck.js';
-
 /*
 Player prototype constructor
 */
-
-function Player(spawnCoor, playerId) {
+export function Player(spawnCoor, playerId, ctx) {
   this.width = 10;
   this.height = 10;
   this.x = spawnCoor.x;
@@ -14,13 +10,14 @@ function Player(spawnCoor, playerId) {
   this.yMotionSpeed = 0;
   this.id = playerId;
   this.radius = 10;
+  this.ctx = ctx;
 }
 
 /*
 Draw player.  It's just a circle for now.
 */
-
-Player.prototype.drawPlayer = function (ctx) {
+Player.prototype.drawPlayer = function () {
+  let ctx = this.ctx;
   ctx.beginPath();
   ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
   ctx.fillStyle = '#558bb8';
@@ -29,7 +26,6 @@ Player.prototype.drawPlayer = function (ctx) {
 };
 
 /*Set player position*/
-
 Player.prototype.setPlayerPosition = function (playerPos) {
   this.x = playerPos.x;
   this.y = playerPos.y;
@@ -47,10 +43,9 @@ Player.prototype.motionSpeedToPosition = function () {
 /*
 Evaluate collision of the player with the edges of the play area.
 */
-
 Player.prototype.collisionWithBorder = function (cwidth, cheight) {
 
-  var xPos = this.x + this.xMotionSpeed,
+  let xPos = this.x + this.xMotionSpeed,
     yPos = this.y + this.yMotionSpeed;
 
   if (xPos > cwidth - this.radius || xPos < this.radius) this.xMotionSpeed = -this.xMotionSpeed;
@@ -60,10 +55,9 @@ Player.prototype.collisionWithBorder = function (cwidth, cheight) {
 /*
 Directional control with the arrow keys.
 */
-
 Player.prototype.movePlayer = function (cwidth, cheight) {
 
-  var that = this,
+  let that = this,
     leftMove = that.x - 2,
     upMove = that.y - 2,
     rightMove = that.x + 2,
@@ -98,7 +92,6 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
       }
     };
 
-  if (mobileCheck) {
     document.querySelector('.d-pad').onclick = e => {
       let target = e.target,
         targetID = target.getAttribute('id'),
@@ -106,9 +99,7 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
 
       move[direction]();
     };
-  }
-    
-  if (!mobileCheck) {
+
     document.onkeydown = function (e) {
       let keyCode = e.keyCode || e.which,
         stringKey = keyCode.toString();
@@ -130,7 +121,7 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
         }
         return;
       }
-            
+
       if (stringKey === '37') move['left']();
       if (stringKey === '38') move['up']();
       if (stringKey === '39') move['right']();
@@ -141,7 +132,4 @@ Player.prototype.movePlayer = function (cwidth, cheight) {
       that.xMotionSpeed = 0;
       that.yMotionSpeed = 0;
     };
-  }
 };
-
-export default Player;
