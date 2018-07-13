@@ -21,9 +21,9 @@ Canvas.prototype.refreshFrame = function() {
     this.clearCanvas();
     this.drawBorders();
     for (let player of this.players) {
-      player.drawPlayer()
+      player.drawBeing()
     }
-  }, 100)
+  }, 1)
 }
 
 Canvas.prototype.createCanvasSize = function() {
@@ -34,7 +34,7 @@ Canvas.prototype.createCanvasSize = function() {
 /*Create the players for the game session*/
 Canvas.prototype.createPlayers = function() {
   for (let i = 0; i < this.numPlayers; i++) {
-    this.players.push(new Player({x: 50, y: 50}, 12345, this.ctx))
+    this.players.push(new Player({x: 50, y: 50}, 12345, this.ctx, this.width, this.height))
   }
 }
 

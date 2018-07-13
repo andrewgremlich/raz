@@ -1,32 +1,23 @@
+import { Being } from './Being.js';
+
 /*
 Player prototype constructor
 */
-export function Player(spawnCoor, playerId, ctx) {
-  this.width = 10;
-  this.height = 10;
-  this.x = spawnCoor.x;
-  this.y = spawnCoor.y;
-  this.xMotionSpeed = 0;
-  this.yMotionSpeed = 0;
+export function Player(spawnCoor, playerId, ctx, canvasWidth, canvasHeight) {
   this.id = playerId;
-  this.radius = 10;
   this.ctx = ctx;
+  this.canvasWidth = canvasWidth;
+  this.canvasHeight = canvasHeight;
+
+  Being.call(this, spawnCoor)
+
+  this.movePlayer(this.canvasWidth, this.canvasHeight);
 }
 
-/*
-Draw player.  It's just a circle for now.
-*/
-Player.prototype.drawPlayer = function () {
-  let ctx = this.ctx;
-  ctx.beginPath();
-  ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-  ctx.fillStyle = '#558bb8';
-  ctx.fill();
-  ctx.closePath();
-};
+Player.prototype = Object.create(Being.prototype);
 
-/*Set player position*/
-Player.prototype.setPlayerPosition = function (playerPos) {
+/*Set player position based off external data*/
+Player.prototype.setPlayerPosition = function(playerPos) {
   this.x = playerPos.x;
   this.y = playerPos.y;
 };
@@ -34,8 +25,7 @@ Player.prototype.setPlayerPosition = function (playerPos) {
 /*
 Player motion according to the arrow controls in the movePlayer method
 */
-
-Player.prototype.motionSpeedToPosition = function () {
+Player.prototype.motionSpeedToPosition = function() {
   this.x += this.xMotionSpeed;
   this.y += this.yMotionSpeed;
 };
@@ -43,7 +33,7 @@ Player.prototype.motionSpeedToPosition = function () {
 /*
 Evaluate collision of the player with the edges of the play area.
 */
-Player.prototype.collisionWithBorder = function (cwidth, cheight) {
+Player.prototype.collisionWithBorder = function(cwidth, cheight) {
 
   let xPos = this.x + this.xMotionSpeed,
     yPos = this.y + this.yMotionSpeed;
@@ -55,81 +45,36 @@ Player.prototype.collisionWithBorder = function (cwidth, cheight) {
 /*
 Directional control with the arrow keys.
 */
-Player.prototype.movePlayer = function (cwidth, cheight) {
+Player.prototype.movePlayer = function(cwidth, cheight) {
 
   let that = this,
-    leftMove = that.x - 2,
-    upMove = that.y - 2,
-    rightMove = that.x + 2,
-    downMove = that.y + 2,
     xPos = that.x,
     yPos = that.y,
-    borderCollisionX = xPos > cwidth - that.radius || xPos < that.radius,
-    borderCollisionY = yPos > cheight - that.radius || yPos < that.radius,
-    token = localStorage['razSessionToken'],
-    xCoorDatabase = database.ref(`users/${token}/x`),
-    yCoorDatabase = database.ref(`users/${token}/y`),
     move = {
-      'left': function () {
-        //console.log("firing left arrow!")
-        that.xMotionSpeed = that.xMotionSpeed - 2;
-        xCoorDatabase.set(leftMove);
-      },
-      'up': function () {
-        //console.log("firing up arrow!")
-        that.yMotionSpeed = that.yMotionSpeed - 2;
-        yCoorDatabase.set(upMove);
-      },
-      'right': function () {
-        //console.log("firing right arrow!")
-        that.xMotionSpeed = that.xMotionSpeed + 2;
-        xCoorDatabase.set(rightMove);
-      },
-      'down': function () {
-        //console.log("firing down arrow!")
-        yCoorDatabase.set(downMove);
-        that.yMotionSpeed = that.yMotionSpeed + 2;
-      }
+      left() { that.xMotionSpeed = that.xMotionSpeed - that.motionLimit },
+      up() { that.yMotionSpeed = that.yMotionSpeed - that.motionLimit },
+      right() { that.xMotionSpeed = that.xMotionSpeed + that.motionLimit },
+      down() { that.yMotionSpeed = that.yMotionSpeed + that.motionLimit }
     };
 
-    document.querySelector('.d-pad').onclick = e => {
-      let target = e.target,
-        targetID = target.getAttribute('id'),
-        direction = targetID.replace('d-', '');
-
-      move[direction]();
-    };
-
-    document.onkeydown = function (e) {
-      let keyCode = e.keyCode || e.which,
-        stringKey = keyCode.toString();
-
-      if (borderCollisionX) {
-        console.log('collision x!');
-        if (xPos > cwidth - that.radius) {
-          move['left']();
-        } else if (xPos < that.radius) {
-          move['right']();
-        }
-        return;
-      } else if (borderCollisionY) {
-        console.log('collision y!');
-        if (yPos > cheight - that.radius) {
-          move['up']();
-        } else if (yPos < that.radius) {
-          move['down']();
-        }
-        return;
+  document.onkeydown = function(e) {
+    let keyCode = e.keyCode || e.which,
+      stringKey = keyCode.toString(),
+      moveDictionary = {
+        '37': () => move['left'](),
+        '38': () => move['up'](),
+        '39': () => move['right'](),
+        '40': () => move['down']()
       }
 
-      if (stringKey === '37') move['left']();
-      if (stringKey === '38') move['up']();
-      if (stringKey === '39') move['right']();
-      if (stringKey === '40') move['down']();
-    };
+    moveDictionary[stringKey]()
 
-    document.onkeyup = function () {
-      that.xMotionSpeed = 0;
-      that.yMotionSpeed = 0;
-    };
+    that.motionSpeedToPosition();
+    that.collisionWithBorder(cwidth, cheight);
+  };
+
+  document.onkeyup = function() {
+    that.xMotionSpeed = 0;
+    that.yMotionSpeed = 0;
+  };
 };
