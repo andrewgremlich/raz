@@ -65,7 +65,7 @@ Player.prototype.movePlayer = function(cwidth, cheight) {
         '38': () => move['up'](),
         '39': () => move['right'](),
         '40': () => move['down']()
-      }
+      };
 
     moveDictionary[stringKey]()
 

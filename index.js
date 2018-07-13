@@ -3,17 +3,19 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const path = require('path');
+const uuidv4 = require('uuid/v4');
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
+// uuidv4();
 
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.get('/', (req, res) => res.sendFile(__dirname + '/static/index.html'));
+
+app.use('/', express.static(path.join(__dirname, 'static')))
 
 io.on('connection', socket => {
 
   console.log('a user connected');
 
   socket.broadcast.emit('hi');
-
   socket.on('disconnect', () => console.log('user disconnected'));
 
   socket.on('chat message', msg => {

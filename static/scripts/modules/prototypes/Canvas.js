@@ -5,25 +5,14 @@ Canvas prototype constructor
 export function Canvas(data, numPlayers) {
   this.canvasElement = document.getElementById('myCanvas');
   this.ctx = this.canvasElement.getContext('2d');
-  this.width = 800;
-  this.height = 800;
+  this.width = 400;
+  this.height = 400;
   this.numPlayers = numPlayers;
   this.players = [];
   this.data = data;
 
   this.createPlayers(this.numPlayers);
   this.createCanvasSize();
-  this.refreshFrame();
-}
-
-Canvas.prototype.refreshFrame = function() {
-  setInterval(() => {
-    this.clearCanvas();
-    this.drawBorders();
-    for (let player of this.players) {
-      player.drawBeing()
-    }
-  }, 1)
 }
 
 Canvas.prototype.createCanvasSize = function() {
