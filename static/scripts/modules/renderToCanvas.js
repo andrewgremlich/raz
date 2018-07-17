@@ -5,6 +5,6 @@ export function renderToCanvas(canvas) {
     for (let player of canvas.players) {
       player.drawBeing()
     }
-    window.requestAnimationFrame(renderToCanvas(canvas));
+    // requestAnimationFrame(renderToCanvas(canvas));
   }
 }

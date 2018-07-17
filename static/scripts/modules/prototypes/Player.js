@@ -15,13 +15,6 @@ export function Player(spawnCoor, playerId, ctx, canvasWidth, canvasHeight) {
 }
 
 Player.prototype = Object.create(Being.prototype);
-
-/*Set player position based off external data*/
-Player.prototype.setPlayerPosition = function(playerPos) {
-  this.x = playerPos.x;
-  this.y = playerPos.y;
-};
-
 /*
 Player motion according to the arrow controls in the movePlayer method
 */
@@ -48,28 +41,22 @@ Directional control with the arrow keys.
 Player.prototype.movePlayer = function(cwidth, cheight) {
 
   let that = this,
-    xPos = that.x,
-    yPos = that.y,
     move = {
-      left() { that.xMotionSpeed = that.xMotionSpeed - that.motionLimit },
-      up() { that.yMotionSpeed = that.yMotionSpeed - that.motionLimit },
-      right() { that.xMotionSpeed = that.xMotionSpeed + that.motionLimit },
-      down() { that.yMotionSpeed = that.yMotionSpeed + that.motionLimit }
+      '37': () => { that.xMotionSpeed = that.xMotionSpeed - that.motionLimit },
+      '38': () => { that.yMotionSpeed = that.yMotionSpeed - that.motionLimit },
+      '39': () => { that.xMotionSpeed = that.xMotionSpeed + that.motionLimit },
+      '40': () => { that.yMotionSpeed = that.yMotionSpeed + that.motionLimit }
     };
 
   document.onkeydown = function(e) {
     let keyCode = e.keyCode || e.which,
-      stringKey = keyCode.toString(),
-      moveDictionary = {
-        '37': () => move['left'](),
-        '38': () => move['up'](),
-        '39': () => move['right'](),
-        '40': () => move['down']()
-      };
+      stringKey = keyCode.toString();
 
-    moveDictionary[stringKey]()
+    move[stringKey]()
 
-    that.motionSpeedToPosition();
+    that.x += that.xMotionSpeed;
+    that.y += that.yMotionSpeed;
+
     that.collisionWithBorder(cwidth, cheight);
   };
 

@@ -7,7 +7,9 @@ const socket = io();
 const StartGame = ((socket) => {
   const canvas =  new Canvas(socket, 1);
 
-  window.requestAnimationFrame(renderToCanvas(canvas));
+  setInterval(renderToCanvas(canvas), 10);
+
+  // requestAnimationFrame(renderToCanvas(canvas));
 
 })(socket);
 

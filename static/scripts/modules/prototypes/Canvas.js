@@ -5,8 +5,8 @@ Canvas prototype constructor
 export function Canvas(data, numPlayers) {
   this.canvasElement = document.getElementById('myCanvas');
   this.ctx = this.canvasElement.getContext('2d');
-  this.width = 400;
-  this.height = 400;
+  this.width = 720;
+  this.height = 480;
   this.numPlayers = numPlayers;
   this.players = [];
   this.data = data;
