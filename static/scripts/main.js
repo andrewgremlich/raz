@@ -1,16 +1,17 @@
-import { Canvas } from './modules/prototypes/Canvas.js';
-import { renderToCanvas } from './modules/renderToCanvas.js';
+import { Game } from './modules/prototypes/Game.js';
 
 import '../style/main.css';
 
 const socket = io();
 const StartGame = ((socket) => {
-  const canvas =  new Canvas(socket, 1);
 
-  setInterval(renderToCanvas(canvas), 10);
+  const game =  new Game(socket, 1);
 
-  // requestAnimationFrame(renderToCanvas(canvas));
+  console.log('GAME OBJECT', game)
 
+  setInterval(() => {
+    game.renderToCanvas()
+  }, 1000/60);
 })(socket);
 
 socket.emit('chat message', 'Hello there!');

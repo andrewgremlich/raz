@@ -1,42 +1,26 @@
-import { Player } from './Player.js';
+import { getById, drawBox } from '../lib.js';
+
 /*
 Canvas prototype constructor
 */
 export function Canvas(data, numPlayers) {
-  this.canvasElement = document.getElementById('myCanvas');
+  this.canvasElement = getById('myCanvas');
   this.ctx = this.canvasElement.getContext('2d');
-  this.width = 720;
-  this.height = 480;
-  this.numPlayers = numPlayers;
-  this.players = [];
+  this.width = 1000 * numPlayers;
+  this.height = 1000 * numPlayers;
   this.data = data;
 
-  this.createPlayers(this.numPlayers);
   this.createCanvasSize();
 }
 
 Canvas.prototype.createCanvasSize = function() {
-  document.querySelector('#myCanvas').height = this.height;
-  document.querySelector('#myCanvas').width = this.width;
-}
-
-/*Create the players for the game session*/
-Canvas.prototype.createPlayers = function() {
-  for (let i = 0; i < this.numPlayers; i++) {
-    this.players.push(new Player({x: 50, y: 50}, 12345, this.ctx, this.width, this.height))
-  }
+  this.canvasElement.height = this.height;
+  this.canvasElement.width = this.width;
 }
 
 /*Prototype method to draw the borders on the canvas.  Purely decorative*/
 Canvas.prototype.drawBorders = function() {
-  let ctx = this.ctx;
-  ctx.beginPath();
-  ctx.moveTo(2, 2);
-  ctx.lineTo(this.width - 2, 2);
-  ctx.lineTo(this.width - 2, this.height - 2);
-  ctx.lineTo(2, this.height - 2);
-  ctx.lineTo(2, 2);
-  ctx.stroke();
+  drawBox(this);
 };
 
 Canvas.prototype.clearCanvas = function() {
