@@ -2,12 +2,9 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 canvas {
   background: #eee;
-  /* position: absolute;
-  top: -100px;
-  left: -100px; */
 }

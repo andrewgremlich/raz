@@ -1,7 +1,7 @@
 import { Player } from './Player.js';
 import { Canvas } from './Canvas.js';
 import { Events } from './Events.js';
-import { Renderer } from './Renderer.js';
+import { renderer } from '../mixins/renderer.js';
 import { extend } from '../lib.js';
 
 export function Game(data, numPlayers) {
@@ -15,11 +15,12 @@ export function Game(data, numPlayers) {
 
 Game.prototype = new Events();
 
-extend(Game.prototype, Renderer);
+extend(Game.prototype, renderer);
 
 /*Create the players for the game session*/
 Game.prototype.createPlayers = function() {
   for (let i = 0; i < this.numPlayers; i++) {
-    this.players.push(new Player({ x: 50, y: 50 }, 12345, this.canvas.ctx, this.canvas.width, this.canvas.height))
+    if (i === 0)
+      this.players.push(new Player({ x: this.canvas.width / 2, y: this.canvas.height / 2 }, 12345, this.canvas.ctx, this.canvas.width, this.canvas.height))
   }
 }

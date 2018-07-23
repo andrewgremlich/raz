@@ -13,3 +13,5 @@ export function Player(spawnCoor, playerId, ctx, canvasWidth, canvasHeight) {
 }
 
 Player.prototype = Object.create(Being.prototype);
+
+// Player.prototype

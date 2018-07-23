@@ -1,4 +1,4 @@
-export let Renderer = {
+export let renderer = {
 
   renderToCanvas() {
     this.canvas.clearCanvas();
@@ -6,6 +6,8 @@ export let Renderer = {
 
     this.playerXAxisMove();
     this.playerYAxisMove();
+
+    this.keepPlayerToCenterScreen();
 
     for (let player of this.players) {
       player.drawBeing(this.canvas.ctx);
@@ -26,5 +28,16 @@ export let Renderer = {
     } else if (this.bottomPressed && this.players[0].y < this.canvas.height - this.players[0].radius) {
       this.players[0].y += 7;
     }
+  },
+
+  keepPlayerToCenterScreen() {
+    const PLAYER_LEFT = this.players[0].x - window.innerWidth / 2;
+    const PLAYER_TOP = this.players[0].y - window.innerHeight / 2;
+
+    window.scrollTo({
+      top: PLAYER_TOP,
+      left: PLAYER_LEFT,
+      behavior: 'instant'
+    })
   }
 }
