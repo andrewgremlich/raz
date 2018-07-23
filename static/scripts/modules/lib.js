@@ -30,3 +30,22 @@ export function drawBox(canvasObj) {
   canvasObj.ctx.lineTo(2, 2);
   canvasObj.ctx.stroke();
 }
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+export function makeObstacles(canvas) {
+  let obstacleArray = [];
+
+  for (let i = 0; i < 10; i++) {
+    obstacleArray.push({
+      x: getRandomInt(50, canvas.width - 50),
+      y: getRandomInt(50, canvas.height - 50),
+      radius: getRandomInt(50, 100),
+      playerColor: '#51bc64'
+    })
+  }
+
+  return obstacleArray;
+}
