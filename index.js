@@ -1,28 +1,41 @@
-const express = require('express');
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
 const path = require('path');
 const uuidv4 = require('uuid/v4');
-
 // uuidv4();
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/static/index.html'));
+const fastify = require('fastify')({
+  logger: true
+})
 
-app.use('/', express.static(path.join(__dirname, 'static')))
+fastify.register(require('fastify-static'), {
+  root: path.join(__dirname, './static'),
+  prefix: '/'
+})
 
-io.on('connection', socket => {
+fastify.register(require('fastify-ws'), {
+  library: 'uws'
+})
 
-  console.log('a user connected');
+fastify.get('/hello', async (request, reply) => {
+  reply.type('application/json').code(200)
+  return {
+    hello: 'world'
+  }
+})
 
-  socket.broadcast.emit('hi');
-  socket.on('disconnect', () => console.log('user disconnected'));
+fastify.ready(err => {
+  if (err) throw err
 
-  socket.on('chat message', msg => {
-    console.log('client message: ' + msg);
-    io.emit('chat message', 'from server: ' + msg);
-  });
+  console.log('Server started.')
 
-});
+  fastify.ws
+    .on('connection', socket => {
+      console.log('Client connected.')
+      socket.on('message', msg => socket.send(msg))
+      socket.on('close', () => console.log('Client disconnected.'))
+    })
+})
 
-http.listen(3000, () => console.log('listening on *:3000'));
+fastify.listen(3000, (err, address) => {
+  if (err) throw err
+  fastify.log.info(`server listening on ${address}`)
+})

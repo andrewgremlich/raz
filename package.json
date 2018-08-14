@@ -4,7 +4,7 @@
   "description": "Game time.",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon .",
+    "serve": "nodemon .",
     "lint": "eslint . --fix",
     "debug": "DEBUG=* node yourfile.js",
     "build": "webpack --config ./webpack-conf/webpack.prod.js",
@@ -22,16 +22,19 @@
   "homepage": "https://github.com/andrewgremlich/raz#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "fastify": "^1.9.0",
+    "fastify-static": "^0.13.0",
+    "fastify-ws": "^1.0.0",
     "socket.io": "^2.1.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
     "css-loader": "^1.0.0",
-    "eslint": "^5.1.0",
-    "nodemon": "^1.18.0",
+    "eslint": "^5.2.0",
+    "nodemon": "^1.18.3",
     "style-loader": "^0.21.0",
-    "webpack": "^4.16.0",
-    "webpack-cli": "^3.0.8",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
     "webpack-merge": "^4.1.3"
   }
 }
