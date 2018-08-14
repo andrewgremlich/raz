@@ -6,7 +6,6 @@
   "scripts": {
     "serve": "nodemon .",
     "lint": "eslint . --fix",
-    "debug": "DEBUG=* node yourfile.js",
     "build": "webpack --config ./webpack-conf/webpack.prod.js",
     "watch": "webpack --config ./webpack-conf/webpack.dev.js --watch"
   },

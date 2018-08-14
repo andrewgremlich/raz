@@ -1,15 +1,17 @@
 import { Player } from './Player.js';
 import { Canvas } from './Canvas.js';
 import { Events } from './Events.js';
+import { Obstacles } from "./Obstacle.js";
 import { renderer } from '../mixins/renderer.js';
-import { extend, makeObstacles } from '../lib.js';
+import { extend } from '../lib.js';
 
 export function Game(data, numPlayers) {
   this.numPlayers = numPlayers;
   this.players = [];
   this.data = data;
   this.canvas = new Canvas(this.data, this.numPlayers);
-  this.obstacles = makeObstacles(this.canvas);
+
+  this.obstacles = new Obstacles(this.canvas);
 
   this.createPlayers(this.numPlayers);
 }
