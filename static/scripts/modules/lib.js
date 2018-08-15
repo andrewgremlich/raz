@@ -8,7 +8,7 @@ export function extend(destination, source) {
 }
 
 export function getById(string) {
-  return document.getElementById(string)
+  return document.getElementById(string);
 }
 
 //NOTE from my understanding 'ctx' and 'canvasObj.ctx' are both referencing
@@ -32,5 +32,5 @@ export function drawBox(canvasObj) {
 }
 
 export function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }

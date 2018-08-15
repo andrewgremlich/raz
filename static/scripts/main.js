@@ -20,4 +20,10 @@ const StartGame = (socket => {
   console.log('GAME OBJECT', game);
   setInterval(() => game.renderToCanvas(), 1000/60);
 
+  // function step() {
+  //   window.requestAnimationFrame(game.renderToCanvas);
+  // }
+  //
+  // window.requestAnimationFrame(step);
+
 })(ws);

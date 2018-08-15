@@ -16,7 +16,7 @@ export function Canvas(data, numPlayers) {
 Canvas.prototype.createCanvasSize = function() {
   this.canvasElement.height = this.height;
   this.canvasElement.width = this.width;
-}
+};
 
 /*Prototype method to draw the borders on the canvas.  Purely decorative*/
 Canvas.prototype.drawBorders = function() {

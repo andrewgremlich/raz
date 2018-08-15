@@ -20,7 +20,7 @@ Events.prototype.keyDownListener = function() {
       that.bottomPressed = true;
     }
   };
-}
+};
 
 Events.prototype.keyUpListner = function() {
   let that = this;
@@ -30,10 +30,10 @@ Events.prototype.keyUpListner = function() {
     that.rightPressed = false;
     that.leftPressed = false;
   };
-}
+};
 
 
 Events.prototype.setEvents = function() {
   this.keyDownListener();
   this.keyUpListner();
-}
+};

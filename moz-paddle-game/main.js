@@ -9,15 +9,15 @@ function Paddle(ctx, canvas) {
 Paddle.prototype.drawPaddle = function() {
   this.ctx.beginPath();
   this.ctx.rect(this.paddleX, this.canvas.height - this.paddleHeight, this.paddleWidth, this.paddleHeight);
-  this.ctx.fillStyle = "#0095DD";
+  this.ctx.fillStyle = '#0095DD';
   this.ctx.fill();
   this.ctx.closePath();
-}
+};
 
 function Ball(ctx, canvas) {
   this.ballRadius = 10;
   this.ctx = ctx;
-  this.canvas = canvas
+  this.canvas = canvas;
   this.x = this.canvas.width / 2;
   this.y = this.canvas.height - 30;
 }
@@ -25,13 +25,13 @@ function Ball(ctx, canvas) {
 Ball.prototype.drawBall = function() {
   this.ctx.beginPath();
   this.ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
-  this.ctx.fillStyle = "#0095DD";
+  this.ctx.fillStyle = '#0095DD';
   this.ctx.fill();
   this.ctx.closePath();
-}
+};
 
 function BrickField(ctx) {
-  this.ctx = ctx
+  this.ctx = ctx;
   this.bricks = [];
   this.brickColumnCount = 3;
   this.brickRowCount = 5;
@@ -54,13 +54,13 @@ BrickField.prototype.drawBricks = function() {
         this.bricks[c][r].y = brickY;
         this.ctx.beginPath();
         this.ctx.rect(brickX, brickY, this.brickWidth, this.brickHeight);
-        this.ctx.fillStyle = "#0095DD";
+        this.ctx.fillStyle = '#0095DD';
         this.ctx.fill();
         this.ctx.closePath();
       }
     }
   }
-}
+};
 
 BrickField.prototype.generateField = function() {
   for (let c = 0; c < this.brickColumnCount; c++) {
@@ -73,11 +73,11 @@ BrickField.prototype.generateField = function() {
       };
     }
   }
-}
+};
 
 function Canvas() {
-  this.canvas = document.getElementById("myCanvas");
-  this.ctx = this.canvas.getContext("2d");
+  this.canvas = document.getElementById('myCanvas');
+  this.ctx = this.canvas.getContext('2d');
 
   this.dx = 2;
   this.dy = -2;
@@ -101,7 +101,7 @@ Canvas.prototype.collisionDetection = function() {
       }
     }
   }
-}
+};
 
 function Game() {
   this.rightPressed = false;
@@ -122,7 +122,7 @@ Game.prototype.keyDownHandler = function(th) {
       that.leftPressed = true;
     }
   };
-}
+};
 
 Game.prototype.keyUpHandler = function(th) {
   let that = th;
@@ -134,12 +134,12 @@ Game.prototype.keyUpHandler = function(th) {
       that.leftPressed = false;
     }
   };
-}
+};
 
 Game.prototype.setEvents = function() {
   this.keyDownHandler(this);
   this.keyUpHandler(this);
-}
+};
 
 Game.prototype.drawFrame = function() {
   this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -162,7 +162,7 @@ Game.prototype.drawFrame = function() {
     if (this.ball.x > this.paddle.paddleX && this.ball.x < this.paddle.paddleX + this.paddle.paddleWidth) {
       this.dy = -this.dy;
     } else {
-      console.log("GAME OVER")
+      console.log('GAME OVER');
     }
   }
 
@@ -174,10 +174,10 @@ Game.prototype.drawFrame = function() {
 
   this.ball.x += this.dx;
   this.ball.y += this.dy;
-}
+};
 
 let executeGame = new Game();
 
 setInterval(() => {
-  executeGame.drawFrame()
+  executeGame.drawFrame();
 }, 10);
