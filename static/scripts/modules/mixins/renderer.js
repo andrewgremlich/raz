@@ -5,30 +5,6 @@ function utilCollided(point, obst, p) {
 
 export let renderer = {
 
-  renderToCanvas() {
-
-    this.mainPlayer = this.players[0];
-
-    this.mainPlayer.determineEdges();
-
-    this.canvas.clearCanvas();
-    this.canvas.drawBorders();
-
-    // this.dead = this.determineEnemyCollision() || false;
-    this.collided = this.determineObstacleCollision();
-
-    this.playerXAxisMove();
-    this.playerYAxisMove();
-
-    this.keepPlayerToCenterScreen();
-
-    this.obstacles.renderObstacles();
-
-    for (let player of this.players) {
-      player.drawBeing(this.canvas.ctx);
-    }
-  },
-
   determineObstacleCollision() {
     let returnCollisionObj = {
       xLeft: false,
@@ -36,7 +12,7 @@ export let renderer = {
       yTop: false,
       yBottom: false
     },
-      p = this.mainPlayer,
+      p = this.players[0],
       stopForLoop = false;
 
     for (let obst of this.obstacles.obstacleArray) {
@@ -120,9 +96,9 @@ export let renderer = {
     let collided = false;
 
     for (let obst of this.obstacles.obstacleArray) {
-      const RADIUS_DIFF = (obst.radius - this.mainPlayer.radius) ** 2;
-      const RADIUS_SUM = (obst.radius + this.mainPlayer.radius) ** 2;
-      const CIRCLE_DETER = (obst.x - this.mainPlayer.x) ** 2 + (obst.y - this.mainPlayer.y) ** 2;
+      const RADIUS_DIFF = (obst.radius - this.players[0].radius) ** 2;
+      const RADIUS_SUM = (obst.radius + this.players[0].radius) ** 2;
+      const CIRCLE_DETER = (obst.x - this.players[0].x) ** 2 + (obst.y - this.players[0].y) ** 2;
 
       if (RADIUS_DIFF <= CIRCLE_DETER &&
         CIRCLE_DETER <= RADIUS_SUM) {
